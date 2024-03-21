@@ -1,4 +1,6 @@
-package src;
+package run;
+
+import board.Board;
 
 import javax.swing.*;
 import java.awt.*;

@@ -3,7 +3,7 @@ package pieces.types;
 import pieces.Piece;
 import pieces.tools.PieceImagesLoader;
 import pieces.tools.PieceName;
-import src.Board;
+import board.Board;
 
 public class Queen extends Piece {
     public Queen(Board board, int col, int row, boolean isWhite){

@@ -2,7 +2,7 @@ package pieces;
 
 
 import pieces.tools.PieceName;
-import src.Board;
+import board.Board;
 
 import java.awt.*;
 

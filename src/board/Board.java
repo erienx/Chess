@@ -1,4 +1,4 @@
-package src;
+package board;
 
 import pieces.*;
 import pieces.types.*;
@@ -12,11 +12,16 @@ public class Board extends JPanel {
     public final int cols = 8;
     public final int rows = 8;
     ArrayList<Piece> pieces= new ArrayList<>();
+    BoardInput boardInput;
     public Board(){
         this.setPreferredSize(new Dimension(cols * tileSize, rows*tileSize));
-        addPieces();
+        placePiecesAtStartingPositions();
+
+        boardInput = new BoardInput(this);
+        this.addMouseListener(boardInput);
+        this.addMouseMotionListener(boardInput);
     }
-    public void addPieces(){
+    public void placePiecesAtStartingPositions(){
         pieces.add(new Knight(this, 1, 0, false));
         pieces.add(new Knight(this, 6, 0, false));
         pieces.add(new Knight(this, 1, 7, true));

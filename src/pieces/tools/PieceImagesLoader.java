@@ -1,5 +1,5 @@
 package pieces.tools;
-import src.Board;
+import board.Board;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

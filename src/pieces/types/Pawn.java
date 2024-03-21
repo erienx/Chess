@@ -8,7 +8,7 @@ import board.Board;
 public class Pawn extends Piece {
     public Pawn(Board board, int col, int row, boolean isWhite){
         super(board);
-        setPositions(col,row);
+        setPositionsColRow(col,row);
         this.isWhite = isWhite;
         this.name = PieceName.PAWN;
 

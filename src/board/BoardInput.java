@@ -1,28 +1,43 @@
 package board;
 
+import pieces.Piece;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class BoardInput extends MouseAdapter {
     Board board;
-    public BoardInput(Board board){
+    MovePiece movePiece;
+    Piece selectedPiece;
+
+    public BoardInput(Board board) {
         this.board = board;
+        this.movePiece = new MovePiece(board);
+        this.selectedPiece = null;
     }
+
     @Override
-    public void mousePressed(MouseEvent event){
-        int x = event.getX();
-        int y = event.getY();
-        System.out.printf("Pressed mouse at x: %d and y: %d\n",x,y);
+    public void mousePressed(MouseEvent event) {
+        int col = event.getX() / board.tileSize;
+        int row = event.getY() / board.tileSize;
+
+        Piece piecePressed = board.findPieceAt(col, row);
+        if (piecePressed != null) {
+            selectedPiece = piecePressed;
+        }
     }
-    public void mouseReleased(MouseEvent event){
-        int x = event.getX();
-        int y = event.getY();
-        System.out.printf("Released mouse at x: %d and y: %d\n",x,y);
+
+    public void mouseReleased(MouseEvent event) {
+        if (selectedPiece != null) {
+            movePiece.moveRelease(selectedPiece, event.getX(), event.getY());
+        }
     }
+
     @Override
-    public void mouseDragged(MouseEvent event){
-        int x = event.getX();
-        int y = event.getY();
+    public void mouseDragged(MouseEvent event) {
+        if (selectedPiece != null) {
+            movePiece.moveDrag(selectedPiece, event.getX(), event.getY());
+        }
     }
 
 }

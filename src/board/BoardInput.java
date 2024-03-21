@@ -20,7 +20,6 @@ public class BoardInput extends MouseAdapter {
     public void mousePressed(MouseEvent event) {
         int col = event.getX() / board.tileSize;
         int row = event.getY() / board.tileSize;
-
         Piece piecePressed = board.findPieceAt(col, row);
         if (piecePressed != null) {
             selectedPiece = piecePressed;
@@ -30,6 +29,7 @@ public class BoardInput extends MouseAdapter {
     public void mouseReleased(MouseEvent event) {
         if (selectedPiece != null) {
             movePiece.moveRelease(selectedPiece, event.getX(), event.getY());
+            selectedPiece = null;
         }
     }
 

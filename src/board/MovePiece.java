@@ -20,7 +20,6 @@ public class MovePiece {
         int col = x / board.tileSize;
         int row = y / board.tileSize;
         piece.setPositionsColRow(col,row);
-        piece = null;
         board.repaint();
     }
 }

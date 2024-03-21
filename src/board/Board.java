@@ -11,8 +11,8 @@ public class Board extends JPanel {
     public final int tileSize = 85;
     public final int cols = 8;
     public final int rows = 8;
-    private ArrayList<Piece> pieces = new ArrayList<>();
-    private BoardInput boardInput;
+    private final ArrayList<Piece> pieces = new ArrayList<>();
+    private final BoardInput boardInput;
 
     public Board() {
         this.setPreferredSize(new Dimension(cols * tileSize, rows * tileSize));

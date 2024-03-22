@@ -1,6 +1,7 @@
 package board;
 
 import pieces.Piece;
+import pieces.tools.MovePiece;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -28,6 +29,7 @@ public class BoardInput extends MouseAdapter {
             selectedPiece = piecePressed;
         }
     }
+
     @Override
     public void mouseReleased(MouseEvent event) {
         if (selectedPiece != null) {

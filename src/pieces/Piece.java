@@ -18,10 +18,10 @@ public class Piece {
     public Piece(Board board) {
         this.board = board;
     }
-    public boolean isMoveValid(int newCol, int newRow){
+
+    public boolean isMoveValid(int newCol, int newRow) {
         return false;
     }
-
 
 
     protected boolean isMoveValidGeneral(int newCol, int newRow) {
@@ -42,6 +42,7 @@ public class Piece {
 
         return true;
     }
+
     public void paintPiece(Graphics2D graphics2D) {
         graphics2D.drawImage(pieceImage, xPosition, yPosition, null);
     }

@@ -6,9 +6,9 @@ import pieces.tools.PieceName;
 import board.Board;
 
 public class Queen extends Piece {
-    public Queen(Board board, int col, int row, boolean isWhite){
+    public Queen(Board board, int col, int row, boolean isWhite) {
         super(board);
-        setPositionsColRow(col,row);
+        setPositionsColRow(col, row);
         this.isWhite = isWhite;
         this.name = PieceName.QUEEN;
 
@@ -17,7 +17,7 @@ public class Queen extends Piece {
     }
 
     @Override
-    public boolean isMoveValid(int newCol, int newRow){
+    public boolean isMoveValid(int newCol, int newRow) {
         if (!isMoveValidGeneral(newCol, newRow)) {
             return false;
         }

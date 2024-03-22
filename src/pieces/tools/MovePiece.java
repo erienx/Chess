@@ -1,5 +1,6 @@
-package board;
+package pieces.tools;
 
+import board.Board;
 import pieces.Piece;
 
 public class MovePiece {

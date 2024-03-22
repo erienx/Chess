@@ -52,8 +52,8 @@ public class Board extends JPanel {
     }
 
     public Piece findPieceAt(int col, int row) {
-        for (Piece piece: pieces){
-            if (piece.getRow() == row && piece.getCol() == col){
+        for (Piece piece : pieces) {
+            if (piece.getRow() == row && piece.getCol() == col) {
                 return piece;
             }
         }

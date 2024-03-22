@@ -10,7 +10,8 @@ public class Main {
         JFrame frame = new JFrame();
         frameOperations(frame);
     }
-    private static void frameOperations(JFrame frame){
+
+    private static void frameOperations(JFrame frame) {
         frame.setTitle("Chess");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

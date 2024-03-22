@@ -1,6 +1,7 @@
 package pieces;
 
 
+import board.PointColRow;
 import pieces.tools.PieceName;
 import board.Board;
 
@@ -25,7 +26,7 @@ public class Piece {
 
 
     protected boolean isMoveValidGeneral(int newCol, int newRow) {
-        System.out.printf("trying to validate at newCol: %d, newRow: %d, current col: %d, current row: %d\n", newCol, newRow, this.colBeforeDrag, this.rowBeforeDrag);
+        //System.out.printf("trying to validate at newCol: %d, newRow: %d, current col: %d, current row: %d\n", newCol, newRow, this.colBeforeDrag, this.rowBeforeDrag);
         if (this.colBeforeDrag == newCol && this.rowBeforeDrag == newRow) {
             return false;
         }
@@ -41,6 +42,56 @@ public class Piece {
         }
 
         return true;
+    }
+
+    protected PointColRow getDeltaAndCheckMoveOrthogonal(int newCol, int newRow) {
+        boolean valid = false;
+        PointColRow point = new PointColRow();
+        if (rowBeforeDrag == newRow && newCol != colBeforeDrag) {
+            point.col = newCol - colBeforeDrag;
+            point.row = 0;
+            valid = true;
+        } else if (colBeforeDrag == newCol && newRow != rowBeforeDrag) {
+            point.col = 0;
+            point.row = newRow - rowBeforeDrag;
+            valid = true;
+        }
+        if (!valid) {
+            point = null;
+        }
+        return point;
+    }
+
+    protected PointColRow getDeltaAndCheckMoveDiagonal(int newCol, int newRow) {
+        PointColRow point = new PointColRow();
+        int deltaCol = Math.abs(colBeforeDrag - newCol);
+        int deltaRow = Math.abs(rowBeforeDrag - newRow);
+        if (deltaRow == deltaCol) {
+            point.col = newCol - colBeforeDrag;
+            point.row = newRow - rowBeforeDrag;
+            return point;
+        } else {
+            point = null;
+            return point;
+        }
+    }
+
+    protected PointColRow getDeltaAndCheckMoveLShape(int newCol, int newRow) {
+        PointColRow point = new PointColRow();
+        if ((newCol == colBeforeDrag + 1 && newRow == rowBeforeDrag + 2)
+                || (newCol == colBeforeDrag - 1 && newRow == rowBeforeDrag + 2)
+                || (newCol == colBeforeDrag + 1 && newRow == rowBeforeDrag - 2)
+                || (newCol == colBeforeDrag - 1 && newRow == rowBeforeDrag - 2)
+                || (newRow == rowBeforeDrag + 1 && newCol == colBeforeDrag + 2)
+                || (newRow == rowBeforeDrag - 1 && newCol == colBeforeDrag + 2)
+                || (newRow == rowBeforeDrag + 1 && newCol == colBeforeDrag - 2)
+                || (newRow == rowBeforeDrag - 1 && newCol == colBeforeDrag - 2)) {
+            point.col = newCol - colBeforeDrag;
+            point.row = newRow - rowBeforeDrag;
+            return point;
+        }
+        point = null;
+        return point;
     }
 
     public void paintPiece(Graphics2D graphics2D) {

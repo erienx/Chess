@@ -1,5 +1,6 @@
 package pieces.types;
 
+import board.PointColRow;
 import pieces.Piece;
 import pieces.tools.PieceImagesLoader;
 import pieces.tools.PieceName;
@@ -21,6 +22,9 @@ public class Knight extends Piece {
         if (!isMoveValidGeneral(newCol, newRow)) {
             return false;
         }
-        return true;
+        PointColRow point = getDeltaAndCheckMoveLShape(newCol, newRow);
+
+        return point != null;
     }
+
 }

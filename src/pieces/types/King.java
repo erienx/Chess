@@ -1,5 +1,6 @@
 package pieces.types;
 
+import board.PointColRow;
 import pieces.Piece;
 import pieces.tools.PieceImagesLoader;
 import pieces.tools.PieceName;
@@ -21,6 +22,15 @@ public class King extends Piece {
         if (!isMoveValidGeneral(newCol, newRow)) {
             return false;
         }
-        return true;
+        PointColRow point = getDeltaAndCheckMoveDiagonal(newCol, newRow);
+        if (point == null) {
+            point = getDeltaAndCheckMoveOrthogonal(newCol, newRow);
+        }
+        System.out.println(point);
+
+        if (point == null) {
+            return false;
+        }
+        return Math.abs(point.col) <= 1 && Math.abs(point.row) <= 1;
     }
 }

@@ -15,4 +15,12 @@ public class Queen extends Piece {
         PieceImagesLoader imagesLoader = new PieceImagesLoader();
         this.pieceImage = imagesLoader.getSinglePieceImage(board, isWhite, this.name);
     }
+
+    @Override
+    public boolean isMoveValid(int newCol, int newRow){
+        if (!isMoveValidGeneral(newCol, newRow)) {
+            return false;
+        }
+        return true;
+    }
 }

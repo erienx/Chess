@@ -14,6 +14,8 @@ public class Main {
     private static void frameOperations(JFrame frame) {
         frame.setTitle("Chess");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ImageIcon icon = new ImageIcon("src/res/logo.png");
+        frame.setIconImage(icon.getImage());
 
         frame.setLayout(new GridBagLayout());
         frame.getContentPane().setBackground(new Color(65, 64, 64, 255));

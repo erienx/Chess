@@ -26,11 +26,14 @@ public class King extends Piece {
         if (point == null) {
             point = getDeltaAndCheckMoveOrthogonal(newCol, newRow);
         }
-        System.out.println(point);
 
         if (point == null) {
             return false;
         }
-        return Math.abs(point.col) <= 1 && Math.abs(point.row) <= 1;
+        if(Math.abs(point.col) <= 1 && Math.abs(point.row) <= 1){
+            return false;
+        }
+
+        return true;
     }
 }

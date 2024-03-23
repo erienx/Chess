@@ -23,7 +23,16 @@ public class Rook extends Piece {
             return false;
         }
         PointColRow point = getDeltaAndCheckMoveOrthogonal(newCol, newRow);
-        System.out.println(point);
-        return point != null;
+
+        if (point == null){
+            return false;
+        }
+
+        if (isSteppingOverAnotherPiece(point)){
+            return false;
+        }
+
+
+        return true;
     }
 }

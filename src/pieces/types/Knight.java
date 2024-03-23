@@ -24,7 +24,28 @@ public class Knight extends Piece {
         }
         PointColRow point = getDeltaAndCheckMoveLShape(newCol, newRow);
 
-        return point != null;
+        if (point == null){
+            return false;
+        }
+        return true;
+    }
+
+    private PointColRow getDeltaAndCheckMoveLShape(int newCol, int newRow) {
+        PointColRow point = new PointColRow();
+        if ((newCol == col + 1 && newRow == row + 2)
+                || (newCol == col - 1 && newRow == row + 2)
+                || (newCol == col + 1 && newRow == row - 2)
+                || (newCol == col - 1 && newRow == row - 2)
+                || (newRow == row + 1 && newCol == col + 2)
+                || (newRow == row - 1 && newCol == col + 2)
+                || (newRow == row + 1 && newCol == col - 2)
+                || (newRow == row - 1 && newCol == col - 2)) {
+            point.col = newCol - col;
+            point.row = newRow - row;
+            return point;
+        }
+        point = null;
+        return point;
     }
 
 }

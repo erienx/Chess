@@ -27,14 +27,19 @@ public class Pawn extends Piece {
         }
 
 
-        PointColRow point = isMovePawnValid(newCol, newRow);
-        System.out.println(point);
+        PointColRow point = getDeltaAndCheckMovePawn(newCol, newRow);
 
-        return point != null;
+        if (point==null){
+            return false;
+        }
+        if (isSteppingOverAnotherPiece(point)){
+            return false;
+        }
+        return true;
     }
 
-    public PointColRow isMovePawnValid(int newCol, int newRow) {
-        if (newCol != colBeforeDrag) {
+    private PointColRow getDeltaAndCheckMovePawn(int newCol, int newRow) {
+        if (newCol != col) {
             return null;
         }
         PointColRow point = new PointColRow(0, 0);
@@ -45,11 +50,11 @@ public class Pawn extends Piece {
             rowModifier = 1;
 
         if (!moved) {
-            if (newRow == this.rowBeforeDrag + rowModifier * 2) {
+            if (newRow == this.row + rowModifier * 2) {
                 point.row = rowModifier * 2;
             }
         }
-        if (newRow == rowBeforeDrag + rowModifier) {
+        if (newRow == row + rowModifier) {
             point.row = rowModifier;
         }
         if (point.row == 0) {

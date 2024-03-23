@@ -53,11 +53,22 @@ public class Board extends JPanel {
 
     public Piece findPieceAt(int col, int row) {
         for (Piece piece : pieces) {
-            if (piece.getRow() == row && piece.getCol() == col) {
+            if (piece.row == row && piece.col == col) {
                 return piece;
             }
         }
         return null;
+    }
+    public boolean isPieceAt(int col, int row){
+        for (Piece piece : pieces) {
+            if (piece.row == row && piece.col == col) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public void capturePiece(int col, int row){
+
     }
 
     @Override

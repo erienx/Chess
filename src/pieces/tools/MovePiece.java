@@ -22,7 +22,7 @@ public class MovePiece {
         if (piece.isMoveValid(col, row)) {
             piece.setPositionsColRow(col, row);
         } else {
-            piece.setPositionsColRow(piece.colBeforeDrag, piece.rowBeforeDrag);
+            piece.setPositionsColRow(piece.col, piece.row);
         }
     }
 

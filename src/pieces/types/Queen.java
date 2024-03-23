@@ -22,17 +22,18 @@ public class Queen extends Piece {
         if (!isMoveValidGeneral(newCol, newRow)) {
             return false;
         }
+
         PointColRow point = getDeltaAndCheckMoveDiagonal(newCol, newRow);
         if (point == null) {
             point = getDeltaAndCheckMoveOrthogonal(newCol, newRow);
         }
-        System.out.println(point);
+
         if (point == null){
             return false;
         }
-        System.out.println("piece at new pos: " +isPieceAtNewPosition(point));
-        System.out.println("stepping over a piece: " +isSteppingOverAnotherPiece(point));
-
+        if (isSteppingOverAnotherPiece(point)){
+            return false;
+        }
 
         return true;
     }

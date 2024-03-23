@@ -67,7 +67,7 @@ public class Board extends JPanel {
         }
         return false;
     }
-    public void capturePiece(){
+    public void capturePiece(int col, int row){
 
     }
 

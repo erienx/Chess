@@ -76,23 +76,6 @@ public class Piece {
         }
     }
 
-    protected PointColRow getDeltaAndCheckMoveLShape(int newCol, int newRow) {
-        PointColRow point = new PointColRow();
-        if ((newCol == col + 1 && newRow == row + 2)
-                || (newCol == col - 1 && newRow == row + 2)
-                || (newCol == col + 1 && newRow == row - 2)
-                || (newCol == col - 1 && newRow == row - 2)
-                || (newRow == row + 1 && newCol == col + 2)
-                || (newRow == row - 1 && newCol == col + 2)
-                || (newRow == row + 1 && newCol == col - 2)
-                || (newRow == row - 1 && newCol == col - 2)) {
-            point.col = newCol - col;
-            point.row = newRow - row;
-            return point;
-        }
-        point = null;
-        return point;
-    }
     protected boolean isSteppingOverAnotherPiece(PointColRow point){
         int newCol = col;
         int newRow = row;
@@ -111,12 +94,6 @@ public class Piece {
             }
         }
         return false;
-    }
-    protected boolean isPieceAtNewPosition(PointColRow point){
-        int newCol = col + point.col;
-        int newRow = row + point.row;
-
-        return board.isPieceAt(newCol, newRow);
     }
 
 

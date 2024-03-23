@@ -24,8 +24,8 @@ public class BoardInput extends MouseAdapter {
         int row = event.getY() / board.tileSize;
         Piece piecePressed = board.findPieceAt(col, row);
         if (piecePressed != null) {
-            piecePressed.colBeforeDrag = col;
-            piecePressed.rowBeforeDrag = row;
+            piecePressed.col = col;
+            piecePressed.row = row;
             selectedPiece = piecePressed;
         }
     }

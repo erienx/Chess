@@ -34,7 +34,7 @@ public class Pawn extends Piece {
     }
 
     public PointColRow isMovePawnValid(int newCol, int newRow) {
-        if (newCol != colBeforeDrag) {
+        if (newCol != col) {
             return null;
         }
         PointColRow point = new PointColRow(0, 0);
@@ -45,11 +45,11 @@ public class Pawn extends Piece {
             rowModifier = 1;
 
         if (!moved) {
-            if (newRow == this.rowBeforeDrag + rowModifier * 2) {
+            if (newRow == this.row + rowModifier * 2) {
                 point.row = rowModifier * 2;
             }
         }
-        if (newRow == rowBeforeDrag + rowModifier) {
+        if (newRow == row + rowModifier) {
             point.row = rowModifier;
         }
         if (point.row == 0) {

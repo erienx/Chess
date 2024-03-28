@@ -33,7 +33,7 @@ public class King extends Piece {
         if (point == null) {
             return false;
         }
-        if(Math.abs(point.col) > 1 || Math.abs(point.row) > 1){
+        if (Math.abs(point.col) > 1 || Math.abs(point.row) > 1) {
             return false;
         }
 
@@ -41,18 +41,18 @@ public class King extends Piece {
     }
 
     @Override
-    protected ArrayList<PointColRow> getUncheckedPossibleMoves(){
+    protected ArrayList<PointColRow> getUncheckedPossibleMoves() {
         ArrayList<PointColRow> moves = new ArrayList<>();
-        moves.add(new PointColRow(col +1, row));
-        moves.add(new PointColRow(col +1,row+1));
-        moves.add(new PointColRow(col,row+1));
+        moves.add(new PointColRow(col + 1, row));
+        moves.add(new PointColRow(col + 1, row + 1));
+        moves.add(new PointColRow(col, row + 1));
 
-        moves.add(new PointColRow(col -1, row));
-        moves.add(new PointColRow(col -1,row-1));
-        moves.add(new PointColRow(col,row-1));
+        moves.add(new PointColRow(col - 1, row));
+        moves.add(new PointColRow(col - 1, row - 1));
+        moves.add(new PointColRow(col, row - 1));
 
-        moves.add(new PointColRow(col -1,row+1));
-        moves.add(new PointColRow(col +1,row-1));
+        moves.add(new PointColRow(col - 1, row + 1));
+        moves.add(new PointColRow(col + 1, row - 1));
 
 
         return moves;

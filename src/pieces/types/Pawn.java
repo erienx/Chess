@@ -32,10 +32,10 @@ public class Pawn extends Piece {
 
         PointColRow point = getDeltaAndCheckMovePawn(newCol, newRow);
 
-        if (point==null){
+        if (point == null) {
             return false;
         }
-        if (isSteppingOverAnotherPiece(point)){
+        if (isSteppingOverAnotherPiece(point)) {
             return false;
         }
         return true;
@@ -68,18 +68,17 @@ public class Pawn extends Piece {
     }
 
     @Override
-    protected ArrayList<PointColRow> getUncheckedPossibleMoves(){
+    protected ArrayList<PointColRow> getUncheckedPossibleMoves() {
         ArrayList<PointColRow> moves = new ArrayList<>();
-        if (isWhite){
-            moves.add(new PointColRow(col , row-1));
-            if (!moved){
-                moves.add(new PointColRow(col , row-2));
+        if (isWhite) {
+            moves.add(new PointColRow(col, row - 1));
+            if (!moved) {
+                moves.add(new PointColRow(col, row - 2));
             }
-        }
-        else{
-            moves.add(new PointColRow(col , row+1));
-            if (!moved){
-                moves.add(new PointColRow(col , row+2));
+        } else {
+            moves.add(new PointColRow(col, row + 1));
+            if (!moved) {
+                moves.add(new PointColRow(col, row + 2));
             }
         }
 

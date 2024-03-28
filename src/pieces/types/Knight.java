@@ -26,7 +26,7 @@ public class Knight extends Piece {
         }
         PointColRow point = getDeltaAndCheckMoveLShape(newCol, newRow);
 
-        if (point == null){
+        if (point == null) {
             return false;
         }
         return true;
@@ -50,19 +50,20 @@ public class Knight extends Piece {
         point = null;
         return point;
     }
+
     @Override
-    protected ArrayList<PointColRow> getUncheckedPossibleMoves(){
+    protected ArrayList<PointColRow> getUncheckedPossibleMoves() {
         ArrayList<PointColRow> moves = new ArrayList<>();
 
-        moves.add(new PointColRow(col+1,row+2));
-        moves.add(new PointColRow(col-1,row+2));
-        moves.add(new PointColRow(col+1,row-2));
-        moves.add(new PointColRow(col-1,row-2));
+        moves.add(new PointColRow(col + 1, row + 2));
+        moves.add(new PointColRow(col - 1, row + 2));
+        moves.add(new PointColRow(col + 1, row - 2));
+        moves.add(new PointColRow(col - 1, row - 2));
 
-        moves.add(new PointColRow(col+2,row+1));
-        moves.add(new PointColRow(col-2,row+1));
-        moves.add(new PointColRow(col+2,row-1));
-        moves.add(new PointColRow(col-2,row-1));
+        moves.add(new PointColRow(col + 2, row + 1));
+        moves.add(new PointColRow(col - 2, row + 1));
+        moves.add(new PointColRow(col + 2, row - 1));
+        moves.add(new PointColRow(col - 2, row - 1));
 
         return moves;
     }

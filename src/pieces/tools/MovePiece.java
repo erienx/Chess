@@ -25,7 +25,7 @@ public class MovePiece {
         } else {
             piece.setPositionsColRow(piece.col, piece.row);
         }
-        if (piece instanceof Pawn){
+        if (piece instanceof Pawn) {
             Pawn piecePawn = (Pawn) piece;
             piecePawn.moved = true;
         }

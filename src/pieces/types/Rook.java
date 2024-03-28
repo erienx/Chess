@@ -26,18 +26,19 @@ public class Rook extends Piece {
         }
         PointColRow point = getDeltaAndCheckMoveOrthogonal(newCol, newRow);
 
-        if (point == null){
+        if (point == null) {
             return false;
         }
 
-        if (isSteppingOverAnotherPiece(point)){
+        if (isSteppingOverAnotherPiece(point)) {
             return false;
         }
 
         return true;
     }
+
     @Override
-    protected ArrayList<PointColRow> getUncheckedPossibleMoves(){
+    protected ArrayList<PointColRow> getUncheckedPossibleMoves() {
         return getUncheckedPossibleMovesOrthogonal();
     }
 }

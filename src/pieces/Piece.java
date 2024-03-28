@@ -21,22 +21,25 @@ public abstract class Piece {
     public Piece(Board board) {
         this.board = board;
     }
+
     public void paintPiece(Graphics2D graphics2D) {
         graphics2D.drawImage(pieceImage, xPosition, yPosition, null);
     }
 
     public abstract boolean isMoveValid(int newCol, int newRow);
+
     protected abstract ArrayList<PointColRow> getUncheckedPossibleMoves();
-    public ArrayList<PointColRow> getPossibleMoves(){
+
+    public ArrayList<PointColRow> getPossibleMoves() {
         ArrayList<PointColRow> moves = getUncheckedPossibleMoves();
-        if (moves == null){
+        if (moves == null) {
             return null;
         }
         Iterator<PointColRow> movesIterator = moves.iterator();
 
-        while (movesIterator.hasNext()){
+        while (movesIterator.hasNext()) {
             PointColRow move = movesIterator.next();
-            if (!isMoveValid(move.col, move.row)){
+            if (!isMoveValid(move.col, move.row)) {
                 movesIterator.remove();
             }
         }
@@ -96,59 +99,59 @@ public abstract class Piece {
         }
     }
 
-    protected boolean isSteppingOverAnotherPiece(PointColRow pointDelta){
+    protected boolean isSteppingOverAnotherPiece(PointColRow pointDelta) {
         int newCol = col;
         int newRow = row;
 
-        for (int i = 0; i<Math.abs(pointDelta.row) || i<Math.abs(pointDelta.col); i++) {
+        for (int i = 0; i < Math.abs(pointDelta.row) || i < Math.abs(pointDelta.col); i++) {
 
-            if (pointDelta.col!=0){
-                newCol += pointDelta.col/Math.abs(pointDelta.col);
+            if (pointDelta.col != 0) {
+                newCol += pointDelta.col / Math.abs(pointDelta.col);
             }
-            if (pointDelta.row!=0){
-                newRow += pointDelta.row/Math.abs(pointDelta.row);
+            if (pointDelta.row != 0) {
+                newRow += pointDelta.row / Math.abs(pointDelta.row);
             }
 
-            if (board.isPieceAt(newCol, newRow)){
+            if (board.isPieceAt(newCol, newRow)) {
                 return true;
             }
         }
         return false;
     }
 
-    protected ArrayList<PointColRow> getUncheckedPossibleMovesOrthogonal(){
+    protected ArrayList<PointColRow> getUncheckedPossibleMovesOrthogonal() {
         ArrayList<PointColRow> moves = new ArrayList<>();
-        for (int col = 0; col<board.cols; col++){
-            moves.add(new PointColRow(col,this.row));
+        for (int col = 0; col < board.cols; col++) {
+            moves.add(new PointColRow(col, this.row));
         }
-        for (int row = 0; row<board.rows; row++){
-            moves.add(new PointColRow(this.col,row));
+        for (int row = 0; row < board.rows; row++) {
+            moves.add(new PointColRow(this.col, row));
         }
         return moves;
     }
-    protected ArrayList<PointColRow> getUncheckedPossibleMovesDiagonal(){
+
+    protected ArrayList<PointColRow> getUncheckedPossibleMovesDiagonal() {
         ArrayList<PointColRow> moves = new ArrayList<>();
 
         //top left to bottom right moves
-        for (int col = this.col, row = this.row; col>=0 && row>=0; col--, row--){
-            moves.add(new PointColRow(col,row));
+        for (int col = this.col, row = this.row; col >= 0 && row >= 0; col--, row--) {
+            moves.add(new PointColRow(col, row));
         }
-        for (int col = this.col, row = this.row; col< board.cols && row<board.rows; col++, row++){
-            moves.add(new PointColRow(col,row));
+        for (int col = this.col, row = this.row; col < board.cols && row < board.rows; col++, row++) {
+            moves.add(new PointColRow(col, row));
         }
 
         //top right to bottom left moves
-        for (int col = this.col, row = this.row; col<board.cols && row>=0; col++, row--){
-            moves.add(new PointColRow(col,row));
+        for (int col = this.col, row = this.row; col < board.cols && row >= 0; col++, row--) {
+            moves.add(new PointColRow(col, row));
         }
-        for (int col = this.col, row = this.row; col>=0 && row<board.rows; col--, row++){
-            moves.add(new PointColRow(col,row));
+        for (int col = this.col, row = this.row; col >= 0 && row < board.rows; col--, row++) {
+            moves.add(new PointColRow(col, row));
         }
 
 
         return moves;
     }
-
 
 
     public void setPositionsColRow(int col, int row) {

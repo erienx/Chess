@@ -60,7 +60,8 @@ public class Board extends JPanel {
         }
         return null;
     }
-    public boolean isPieceAt(int col, int row){
+
+    public boolean isPieceAt(int col, int row) {
         for (Piece piece : pieces) {
             if (piece.row == row && piece.col == col) {
                 return true;
@@ -68,10 +69,11 @@ public class Board extends JPanel {
         }
         return false;
     }
-    public boolean isKingInCheck(boolean isWhite){
-        if (!isWhite){
-            for (Piece piece: pieces){
-                if (piece.isWhite()){
+
+    public boolean isKingInCheck(boolean isWhite) {
+        if (!isWhite) {
+            for (Piece piece : pieces) {
+                if (piece.isWhite()) {
 
                 }
             }
@@ -96,7 +98,7 @@ public class Board extends JPanel {
         }
         if (selectedPiece != null) {
             ArrayList<PointColRow> list = selectedPiece.getPossibleMoves();
-            g.setColor(new Color(49, 48, 48,130));
+            g.setColor(new Color(49, 48, 48, 130));
             if (list != null) {
                 for (PointColRow point : list) {
                     int moveX = point.col * tileSize + tileSize / 2;

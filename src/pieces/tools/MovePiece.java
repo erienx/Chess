@@ -22,12 +22,12 @@ public class MovePiece {
         int row = y / board.tileSize;
         if (piece.isMoveValid(col, row)) {
             piece.setPositionsColRow(col, row);
+            if (piece instanceof Pawn) {
+                Pawn piecePawn = (Pawn) piece;
+                piecePawn.moved = true;
+            }
         } else {
             piece.setPositionsColRow(piece.col, piece.row);
-        }
-        if (piece instanceof Pawn) {
-            Pawn piecePawn = (Pawn) piece;
-            piecePawn.moved = true;
         }
     }
 

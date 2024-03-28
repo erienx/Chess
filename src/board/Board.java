@@ -97,14 +97,26 @@ public class Board extends JPanel {
             }
         }
         if (selectedPiece != null) {
-            ArrayList<PointColRow> list = selectedPiece.getPossibleMoves();
-            g.setColor(new Color(49, 48, 48, 130));
-            if (list != null) {
-                for (PointColRow point : list) {
+            ArrayList<PointColRow> possibleMoves = selectedPiece.getPossibleMoves();
+            if (possibleMoves != null) {
+                ArrayList<PointColRow> possibleCaptures = selectedPiece.getPossibleCaptures(possibleMoves);
+                possibleMoves.removeAll(possibleCaptures);
+
+                g.setColor(new Color(49, 48, 48, 130));
+                for (PointColRow point : possibleMoves) {
                     int moveX = point.col * tileSize + tileSize / 2;
                     int moveY = point.row * tileSize + tileSize / 2;
-                    g.fillOval(moveX - 10, moveY - 10, 20, 20);
+                    g.fillOval(moveX - 10, moveY - 10, (int) (tileSize * 0.3), (int) (tileSize * 0.3));
                 }
+
+                Graphics2D g2d = (Graphics2D) g;
+                g2d.setStroke(new BasicStroke(5)); // circle thickness
+                for (PointColRow point : possibleCaptures) {
+                    int pieceX = point.col * tileSize;
+                    int pieceY = point.row * tileSize;
+                    g.drawOval(pieceX, pieceY, (int) (tileSize), (int) (tileSize));
+                }
+                g2d.setStroke(new BasicStroke());
             }
         }
 

@@ -6,6 +6,8 @@ import pieces.tools.PieceImagesLoader;
 import pieces.tools.PieceName;
 import board.Board;
 
+import java.util.ArrayList;
+
 public class Rook extends Piece {
     public Rook(Board board, int col, int row, boolean isWhite) {
         super(board);
@@ -24,15 +26,19 @@ public class Rook extends Piece {
         }
         PointColRow point = getDeltaAndCheckMoveOrthogonal(newCol, newRow);
 
-        if (point == null){
+        if (point == null) {
             return false;
         }
 
-        if (isSteppingOverAnotherPiece(point)){
+        if (isSteppingOverAnotherPiece(point)) {
             return false;
         }
-
 
         return true;
+    }
+
+    @Override
+    protected ArrayList<PointColRow> getUncheckedPossibleMoves() {
+        return getUncheckedPossibleMovesOrthogonal();
     }
 }

@@ -6,8 +6,11 @@ import pieces.tools.PieceImagesLoader;
 import pieces.tools.PieceName;
 import board.Board;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 public class Pawn extends Piece {
-    private boolean moved;
+    public boolean moved;
 
     public Pawn(Board board, int col, int row, boolean isWhite) {
         super(board);
@@ -29,10 +32,10 @@ public class Pawn extends Piece {
 
         PointColRow point = getDeltaAndCheckMovePawn(newCol, newRow);
 
-        if (point==null){
+        if (point == null) {
             return false;
         }
-        if (isSteppingOverAnotherPiece(point)){
+        if (isSteppingOverAnotherPiece(point)) {
             return false;
         }
         return true;
@@ -60,8 +63,26 @@ public class Pawn extends Piece {
         if (point.row == 0) {
             return null;
         }
-        moved = true;
 
         return point;
+    }
+
+    @Override
+    protected ArrayList<PointColRow> getUncheckedPossibleMoves() {
+        ArrayList<PointColRow> moves = new ArrayList<>();
+        if (isWhite) {
+            moves.add(new PointColRow(col, row - 1));
+            if (!moved) {
+                moves.add(new PointColRow(col, row - 2));
+            }
+        } else {
+            moves.add(new PointColRow(col, row + 1));
+            if (!moved) {
+                moves.add(new PointColRow(col, row + 2));
+            }
+        }
+
+
+        return moves;
     }
 }

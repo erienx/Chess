@@ -6,6 +6,8 @@ import pieces.tools.PieceImagesLoader;
 import pieces.tools.PieceName;
 import board.Board;
 
+import java.util.ArrayList;
+
 public class Bishop extends Piece {
     public Bishop(Board board, int col, int row, boolean isWhite) {
         super(board);
@@ -24,14 +26,19 @@ public class Bishop extends Piece {
         }
         PointColRow point = getDeltaAndCheckMoveDiagonal(newCol, newRow);
 
-        if (point == null){
+        if (point == null) {
             return false;
         }
-        if (isSteppingOverAnotherPiece(point)){
+        if (isSteppingOverAnotherPiece(point)) {
             return false;
         }
 
         return true;
+    }
+
+    @Override
+    protected ArrayList<PointColRow> getUncheckedPossibleMoves() {
+        return getUncheckedPossibleMovesDiagonal();
     }
 
 }

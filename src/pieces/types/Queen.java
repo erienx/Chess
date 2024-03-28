@@ -6,6 +6,8 @@ import pieces.tools.PieceImagesLoader;
 import pieces.tools.PieceName;
 import board.Board;
 
+import java.util.ArrayList;
+
 public class Queen extends Piece {
     public Queen(Board board, int col, int row, boolean isWhite) {
         super(board);
@@ -28,13 +30,21 @@ public class Queen extends Piece {
             point = getDeltaAndCheckMoveOrthogonal(newCol, newRow);
         }
 
-        if (point == null){
+        if (point == null) {
             return false;
         }
-        if (isSteppingOverAnotherPiece(point)){
+        if (isSteppingOverAnotherPiece(point)) {
             return false;
         }
 
         return true;
+    }
+
+    @Override
+    protected ArrayList<PointColRow> getUncheckedPossibleMoves() {
+        ArrayList<PointColRow> moves = getUncheckedPossibleMovesOrthogonal();
+        moves.addAll(getUncheckedPossibleMovesDiagonal());
+
+        return moves;
     }
 }

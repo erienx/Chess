@@ -13,6 +13,7 @@ public class Board extends JPanel {
     public final int rows = 8;
     public final ArrayList<Piece> pieces = new ArrayList<>();
     private final BoardInput boardInput;
+    protected Piece selectedPiece = null;
 
     public Board() {
         this.setPreferredSize(new Dimension(cols * tileSize, rows * tileSize));
@@ -59,7 +60,8 @@ public class Board extends JPanel {
         }
         return null;
     }
-    public boolean isPieceAt(int col, int row){
+
+    public boolean isPieceAt(int col, int row) {
         for (Piece piece : pieces) {
             if (piece.row == row && piece.col == col) {
                 return true;
@@ -67,8 +69,17 @@ public class Board extends JPanel {
         }
         return false;
     }
-    public void capturePiece(int col, int row){
 
+    public boolean isKingInCheck(boolean isWhite) {
+        if (!isWhite) {
+            for (Piece piece : pieces) {
+                if (piece.isWhite()) {
+
+                }
+            }
+        }
+
+        return false;
     }
 
     @Override
@@ -85,6 +96,18 @@ public class Board extends JPanel {
                 graphics2D.fillRect(col * tileSize, row * tileSize, tileSize, tileSize);
             }
         }
+        if (selectedPiece != null) {
+            ArrayList<PointColRow> list = selectedPiece.getPossibleMoves();
+            g.setColor(new Color(49, 48, 48, 130));
+            if (list != null) {
+                for (PointColRow point : list) {
+                    int moveX = point.col * tileSize + tileSize / 2;
+                    int moveY = point.row * tileSize + tileSize / 2;
+                    g.fillOval(moveX - 10, moveY - 10, 20, 20);
+                }
+            }
+        }
+
         for (Piece piece : pieces) {
             piece.paintPiece(graphics2D);
         }

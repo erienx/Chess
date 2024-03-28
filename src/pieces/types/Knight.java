@@ -6,6 +6,8 @@ import pieces.tools.PieceImagesLoader;
 import pieces.tools.PieceName;
 import board.Board;
 
+import java.util.ArrayList;
+
 public class Knight extends Piece {
     public Knight(Board board, int col, int row, boolean isWhite) {
         super(board);
@@ -24,7 +26,7 @@ public class Knight extends Piece {
         }
         PointColRow point = getDeltaAndCheckMoveLShape(newCol, newRow);
 
-        if (point == null){
+        if (point == null) {
             return false;
         }
         return true;
@@ -36,6 +38,7 @@ public class Knight extends Piece {
                 || (newCol == col - 1 && newRow == row + 2)
                 || (newCol == col + 1 && newRow == row - 2)
                 || (newCol == col - 1 && newRow == row - 2)
+
                 || (newRow == row + 1 && newCol == col + 2)
                 || (newRow == row - 1 && newCol == col + 2)
                 || (newRow == row + 1 && newCol == col - 2)
@@ -46,6 +49,23 @@ public class Knight extends Piece {
         }
         point = null;
         return point;
+    }
+
+    @Override
+    protected ArrayList<PointColRow> getUncheckedPossibleMoves() {
+        ArrayList<PointColRow> moves = new ArrayList<>();
+
+        moves.add(new PointColRow(col + 1, row + 2));
+        moves.add(new PointColRow(col - 1, row + 2));
+        moves.add(new PointColRow(col + 1, row - 2));
+        moves.add(new PointColRow(col - 1, row - 2));
+
+        moves.add(new PointColRow(col + 2, row + 1));
+        moves.add(new PointColRow(col - 2, row + 1));
+        moves.add(new PointColRow(col + 2, row - 1));
+        moves.add(new PointColRow(col - 2, row - 1));
+
+        return moves;
     }
 
 }

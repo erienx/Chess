@@ -5,17 +5,17 @@ import pieces.tools.MovePiece;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 public class BoardInput extends MouseAdapter {
     private final Board board;
     private final MovePiece movePiece;
-    private Piece selectedPiece;
 
 
     public BoardInput(Board board) {
         this.board = board;
         this.movePiece = new MovePiece(board);
-        this.selectedPiece = null;
+        board.selectedPiece = null;
     }
 
     @Override
@@ -23,26 +23,27 @@ public class BoardInput extends MouseAdapter {
         int col = event.getX() / board.tileSize;
         int row = event.getY() / board.tileSize;
         Piece piecePressed = board.findPieceAt(col, row);
-        if (piecePressed != null) {
-            piecePressed.col = col;
-            piecePressed.row = row;
-            selectedPiece = piecePressed;
-        }
+        if (piecePressed == null)
+            return;
+        piecePressed.col = col;
+        piecePressed.row = row;
+        board.selectedPiece = piecePressed;
+        board.repaint();
     }
 
     @Override
     public void mouseReleased(MouseEvent event) {
-        if (selectedPiece != null) {
-            movePiece.moveRelease(selectedPiece, event.getX(), event.getY());
-            selectedPiece = null;
+        if (board.selectedPiece != null) {
+            movePiece.moveRelease(board.selectedPiece, event.getX(), event.getY());
+            board.selectedPiece = null;
         }
         board.repaint();
     }
 
     @Override
     public void mouseDragged(MouseEvent event) {
-        if (selectedPiece != null) {
-            movePiece.moveDrag(selectedPiece, event.getX(), event.getY());
+        if (board.selectedPiece != null) {
+            movePiece.moveDrag(board.selectedPiece, event.getX(), event.getY());
         }
         board.repaint();
     }

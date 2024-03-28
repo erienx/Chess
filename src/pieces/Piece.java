@@ -24,11 +24,10 @@ public class Piece {
     public boolean isMoveValid(int newCol, int newRow) {
         return false;
     }
-    public ArrayList<PointColRow> getPossibleMovesRelative(){ return null; }
+    public ArrayList<PointColRow> getPossibleMoves(){ return null; }
 
 
     protected boolean isMoveValidGeneral(int newCol, int newRow) {
-        //System.out.printf("trying to validate at newCol: %d, newRow: %d, current col: %d, current row: %d\n", newCol, newRow, this.colBeforeDrag, this.rowBeforeDrag);
         if (this.col == newCol && this.row == newRow) {
             return false;
         }
@@ -78,17 +77,17 @@ public class Piece {
         }
     }
 
-    protected boolean isSteppingOverAnotherPiece(PointColRow point){
+    protected boolean isSteppingOverAnotherPiece(PointColRow pointDelta){
         int newCol = col;
         int newRow = row;
 
-        for (int i = 0; i<Math.abs(point.row) || i<Math.abs(point.col); i++) {
+        for (int i = 0; i<Math.abs(pointDelta.row) || i<Math.abs(pointDelta.col); i++) {
 
-            if (point.col!=0){
-                newCol += point.col/Math.abs(point.col);
+            if (pointDelta.col!=0){
+                newCol += pointDelta.col/Math.abs(pointDelta.col);
             }
-            if (point.row!=0){
-                newRow += point.row/Math.abs(point.row);
+            if (pointDelta.row!=0){
+                newRow += pointDelta.row/Math.abs(pointDelta.row);
             }
 
             if (board.isPieceAt(newCol, newRow)){

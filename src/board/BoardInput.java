@@ -28,10 +28,6 @@ public class BoardInput extends MouseAdapter {
         piecePressed.col = col;
         piecePressed.row = row;
         board.selectedPiece = piecePressed;
-        ArrayList<PointColRow> list = piecePressed.getPossibleMovesRelative();
-        if (list !=null){
-            System.out.println(list.toString());
-        }
     }
 
     @Override

@@ -1,7 +1,6 @@
 package board;
 
 import pieces.*;
-import pieces.tools.PieceName;
 import pieces.types.*;
 
 import javax.swing.*;
@@ -96,7 +95,7 @@ public class Board extends JPanel {
             }
         }
         if (selectedPiece != null) {
-            ArrayList<PointColRow> list = selectedPiece.getPossibleMovesRelative();
+            ArrayList<PointColRow> list = selectedPiece.getPossibleMoves();
             g.setColor(new Color(49, 48, 48,130));
             if (list != null) {
                 for (PointColRow point : list) {

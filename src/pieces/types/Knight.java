@@ -6,6 +6,8 @@ import pieces.tools.PieceImagesLoader;
 import pieces.tools.PieceName;
 import board.Board;
 
+import java.util.ArrayList;
+
 public class Knight extends Piece {
     public Knight(Board board, int col, int row, boolean isWhite) {
         super(board);
@@ -46,6 +48,10 @@ public class Knight extends Piece {
         }
         point = null;
         return point;
+    }
+    @Override
+    protected ArrayList<PointColRow> getUncheckedPossibleMoves(){
+        return null;
     }
 
 }

@@ -2,6 +2,7 @@ package pieces.tools;
 
 import board.Board;
 import pieces.Piece;
+import pieces.types.Pawn;
 
 public class MovePiece {
     Board board;
@@ -23,6 +24,10 @@ public class MovePiece {
             piece.setPositionsColRow(col, row);
         } else {
             piece.setPositionsColRow(piece.col, piece.row);
+        }
+        if (piece instanceof Pawn){
+            Pawn piecePawn = (Pawn) piece;
+            piecePawn.moved = true;
         }
     }
 

@@ -7,8 +7,9 @@ import board.Board;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 
-public class Piece {
+public abstract class Piece {
     protected int colDuringDrag, rowDuringDrag, xPosition, yPosition;
     public int col, row;
     protected boolean isWhite;
@@ -21,10 +22,25 @@ public class Piece {
         this.board = board;
     }
 
-    public boolean isMoveValid(int newCol, int newRow) {
-        return false;
+    public abstract boolean isMoveValid(int newCol, int newRow);
+    protected abstract ArrayList<PointColRow> getUncheckedPossibleMoves();
+    public ArrayList<PointColRow> getPossibleMoves(){
+        ArrayList<PointColRow> moves = getUncheckedPossibleMoves();
+        if (moves == null){
+            return null;
+        }
+        Iterator<PointColRow> movesIterator = moves.iterator();
+
+        while (movesIterator.hasNext()){
+            PointColRow move = movesIterator.next();
+            if (!isMoveValid(move.col, move.row)){
+                movesIterator.remove();
+            }
+        }
+
+
+        return moves;
     }
-    public ArrayList<PointColRow> getPossibleMoves(){ return null; }
 
 
     protected boolean isMoveValidGeneral(int newCol, int newRow) {

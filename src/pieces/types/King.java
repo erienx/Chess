@@ -41,22 +41,7 @@ public class King extends Piece {
     }
 
     @Override
-    public ArrayList<PointColRow> getPossibleMoves() {
-        ArrayList<PointColRow> moves = getUncheckedPossibleMoves();
-        Iterator<PointColRow> movesIterator = moves.iterator();
-
-        while (movesIterator.hasNext()){
-            PointColRow move = movesIterator.next();
-            if (!isMoveValid(move.col, move.row)){
-                movesIterator.remove();
-            }
-        }
-
-
-        return moves;
-    }
-
-    private ArrayList<PointColRow> getUncheckedPossibleMoves(){
+    protected ArrayList<PointColRow> getUncheckedPossibleMoves(){
         ArrayList<PointColRow> moves = new ArrayList<>();
         moves.add(new PointColRow(col +1, row));
         moves.add(new PointColRow(col +1,row+1));

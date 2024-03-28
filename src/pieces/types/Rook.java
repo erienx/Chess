@@ -6,6 +6,8 @@ import pieces.tools.PieceImagesLoader;
 import pieces.tools.PieceName;
 import board.Board;
 
+import java.util.ArrayList;
+
 public class Rook extends Piece {
     public Rook(Board board, int col, int row, boolean isWhite) {
         super(board);
@@ -32,7 +34,10 @@ public class Rook extends Piece {
             return false;
         }
 
-
         return true;
+    }
+    @Override
+    protected ArrayList<PointColRow> getUncheckedPossibleMoves(){
+        return null;
     }
 }

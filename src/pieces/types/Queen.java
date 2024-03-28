@@ -6,6 +6,8 @@ import pieces.tools.PieceImagesLoader;
 import pieces.tools.PieceName;
 import board.Board;
 
+import java.util.ArrayList;
+
 public class Queen extends Piece {
     public Queen(Board board, int col, int row, boolean isWhite) {
         super(board);
@@ -36,5 +38,9 @@ public class Queen extends Piece {
         }
 
         return true;
+    }
+    @Override
+    protected ArrayList<PointColRow> getUncheckedPossibleMoves(){
+        return null;
     }
 }

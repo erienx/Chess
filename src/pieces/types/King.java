@@ -6,6 +6,9 @@ import pieces.tools.PieceImagesLoader;
 import pieces.tools.PieceName;
 import board.Board;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 public class King extends Piece {
     public King(Board board, int col, int row, boolean isWhite) {
         super(board);
@@ -30,10 +33,43 @@ public class King extends Piece {
         if (point == null) {
             return false;
         }
-        if(Math.abs(point.col) <= 1 && Math.abs(point.row) <= 1){
+        if(Math.abs(point.col) > 1 || Math.abs(point.row) > 1){
             return false;
         }
 
         return true;
+    }
+
+    @Override
+    public ArrayList<PointColRow> getPossibleMovesRelative() {
+        ArrayList<PointColRow> moves = getUncheckedPossibleMovesRelative();
+        Iterator<PointColRow> movesIterator = moves.iterator();
+
+        while (movesIterator.hasNext()){
+            PointColRow move = movesIterator.next();
+            if (!isMoveValid(move.col, move.row)){
+                movesIterator.remove();
+            }
+        }
+
+
+        return moves;
+    }
+
+    private ArrayList<PointColRow> getUncheckedPossibleMovesRelative(){
+        ArrayList<PointColRow> moves = new ArrayList<>();
+        moves.add(new PointColRow(col +1, row));
+        moves.add(new PointColRow(col +1,row+1));
+        moves.add(new PointColRow(col,row+1));
+
+        moves.add(new PointColRow(col -1, row));
+        moves.add(new PointColRow(col -1,row-1));
+        moves.add(new PointColRow(col,row-1));
+
+        moves.add(new PointColRow(col -1,row+1));
+        moves.add(new PointColRow(col +1,row-1));
+
+
+        return moves;
     }
 }

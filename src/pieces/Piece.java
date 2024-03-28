@@ -6,6 +6,7 @@ import pieces.tools.PieceName;
 import board.Board;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Piece {
     protected int colDuringDrag, rowDuringDrag, xPosition, yPosition;
@@ -23,6 +24,7 @@ public class Piece {
     public boolean isMoveValid(int newCol, int newRow) {
         return false;
     }
+    public ArrayList<PointColRow> getPossibleMovesRelative(){ return null; }
 
 
     protected boolean isMoveValidGeneral(int newCol, int newRow) {
@@ -117,4 +119,7 @@ public class Piece {
         this.rowDuringDrag = y / board.tileSize;
     }
 
+    public boolean isWhite() {
+        return isWhite;
+    }
 }

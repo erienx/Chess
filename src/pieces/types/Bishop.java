@@ -37,7 +37,7 @@ public class Bishop extends Piece {
     }
     @Override
     protected ArrayList<PointColRow> getUncheckedPossibleMoves(){
-        return null;
+        return getUncheckedPossibleMovesDiagonal();
     }
 
 }

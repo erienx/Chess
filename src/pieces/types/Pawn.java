@@ -70,7 +70,6 @@ public class Pawn extends Piece {
     @Override
     protected ArrayList<PointColRow> getUncheckedPossibleMoves(){
         ArrayList<PointColRow> moves = new ArrayList<>();
-        System.out.println(moved);
         if (isWhite){
             moves.add(new PointColRow(col , row-1));
             if (!moved){

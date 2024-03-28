@@ -38,6 +38,6 @@ public class Rook extends Piece {
     }
     @Override
     protected ArrayList<PointColRow> getUncheckedPossibleMoves(){
-        return null;
+        return getUncheckedPossibleMovesOrthogonal();
     }
 }

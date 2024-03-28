@@ -28,6 +28,7 @@ public class BoardInput extends MouseAdapter {
         piecePressed.col = col;
         piecePressed.row = row;
         board.selectedPiece = piecePressed;
+        board.repaint();
     }
 
     @Override

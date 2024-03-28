@@ -38,6 +38,7 @@ public class Knight extends Piece {
                 || (newCol == col - 1 && newRow == row + 2)
                 || (newCol == col + 1 && newRow == row - 2)
                 || (newCol == col - 1 && newRow == row - 2)
+
                 || (newRow == row + 1 && newCol == col + 2)
                 || (newRow == row - 1 && newCol == col + 2)
                 || (newRow == row + 1 && newCol == col - 2)
@@ -51,7 +52,19 @@ public class Knight extends Piece {
     }
     @Override
     protected ArrayList<PointColRow> getUncheckedPossibleMoves(){
-        return null;
+        ArrayList<PointColRow> moves = new ArrayList<>();
+
+        moves.add(new PointColRow(col+1,row+2));
+        moves.add(new PointColRow(col-1,row+2));
+        moves.add(new PointColRow(col+1,row-2));
+        moves.add(new PointColRow(col-1,row-2));
+
+        moves.add(new PointColRow(col+2,row+1));
+        moves.add(new PointColRow(col-2,row+1));
+        moves.add(new PointColRow(col+2,row-1));
+        moves.add(new PointColRow(col-2,row-1));
+
+        return moves;
     }
 
 }

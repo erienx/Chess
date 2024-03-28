@@ -35,6 +35,9 @@ public class Pawn extends Piece {
         if (point == null) {
             return false;
         }
+        if (board.isPieceAt(newCol, newRow)) {
+            return false;
+        }
         if (isSteppingOverAnotherPiece(point)) {
             return false;
         }
@@ -84,5 +87,30 @@ public class Pawn extends Piece {
 
 
         return moves;
+    }
+
+    @Override
+    public ArrayList<PointColRow> getPossibleCaptures(ArrayList<PointColRow> unused) {
+        ArrayList<PointColRow> possibleCaptures = new ArrayList<>();
+        int direction;
+        if (isWhite) {
+            direction = -1;
+        } else {
+            direction = 1;
+        }
+        PointColRow candidate1 = new PointColRow(col + 1, row + direction);
+        PointColRow candidate2 = new PointColRow(col - 1, row + direction);
+
+        Piece piece = board.findPieceAt(candidate1.col, candidate1.row);
+        if (piece != null && piece.isWhite() != isWhite && isMoveValidGeneral(candidate1.col, candidate1.row)) {
+            possibleCaptures.add(candidate1);
+        }
+
+        piece = board.findPieceAt(candidate2.col, candidate2.row);
+        if (piece != null && piece.isWhite() != isWhite && isMoveValidGeneral(candidate2.col, candidate2.row)) {
+            possibleCaptures.add(candidate2);
+        }
+
+        return possibleCaptures;
     }
 }

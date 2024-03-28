@@ -46,11 +46,12 @@ public abstract class Piece {
 
         return moves;
     }
-    public ArrayList<PointColRow> getPossibleCaptures(ArrayList<PointColRow> possibleMoves){
+
+    public ArrayList<PointColRow> getPossibleCaptures(ArrayList<PointColRow> possibleMoves) {
         ArrayList<PointColRow> possibleCaptures = new ArrayList<>();
-        for (PointColRow point: possibleMoves){
+        for (PointColRow point : possibleMoves) {
             Piece piece = board.findPieceAt(point.col, point.row);
-            if (piece!= null && piece.isWhite != this.isWhite) {
+            if (piece != null && piece.isWhite != this.isWhite) {
                 possibleCaptures.add(point);
             }
         }
@@ -121,7 +122,7 @@ public abstract class Piece {
                 newRow += pointDelta.row / Math.abs(pointDelta.row);
             }
 
-            if (board.isPieceAt(newCol, newRow) && !(col+pointDelta.col==newCol && row+pointDelta.row==newRow)) {
+            if (board.isPieceAt(newCol, newRow) && !(col + pointDelta.col == newCol && row + pointDelta.row == newRow)) {
                 return true;
             }
         }

@@ -25,8 +25,7 @@ public class BoardInput extends MouseAdapter {
         Piece piecePressed = board.findPieceAt(col, row);
         if (piecePressed == null)
             return;
-        piecePressed.col = col;
-        piecePressed.row = row;
+        piecePressed.setPositionsColRow(col, row);
         board.selectedPiece = piecePressed;
         board.repaint();
     }

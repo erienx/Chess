@@ -52,7 +52,7 @@ public class Knight extends Piece {
     }
 
     @Override
-    protected ArrayList<PointColRow> getUncheckedPossibleMoves() {
+    public ArrayList<PointColRow> getUncheckedPossibleMoves() {
         ArrayList<PointColRow> moves = new ArrayList<>();
 
         moves.add(new PointColRow(col + 1, row + 2));

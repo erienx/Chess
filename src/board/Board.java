@@ -71,16 +71,43 @@ public class Board extends JPanel {
     }
 
     public boolean isKingInCheck(boolean isWhite) {
-        if (!isWhite) {
-            for (Piece piece : pieces) {
-                if (piece.isWhite()) {
+        Piece king = findKing(isWhite);
+        if (king == null) {
+            return false;
+        }
 
+        return isPieceUnderAttack(king.isWhite(), new PointColRow(king.col, king.row));
+
+    }
+
+    public Piece findKing(boolean isWhite) {
+        Piece king = null;
+        for (Piece piece : pieces) {
+            if (piece instanceof King && piece.isWhite() == isWhite) {
+                king = piece;
+                break;
+            }
+        }
+        return king;
+    }
+
+    public boolean isPieceUnderAttack(boolean isWhite, PointColRow position) {
+        for (Piece piece : pieces) {
+            if (piece.isWhite() != isWhite) {
+                ArrayList<PointColRow> possibleMoves = piece.getUncheckedPossibleMoves();
+
+                for (PointColRow point : possibleMoves) {
+                    if (point.col == position.col && point.row == position.row) {
+                        if (!piece.isSteppingOverAnotherPiece(new PointColRow(point.col - piece.col, point.row - piece.row))) {
+                            return true;
+                        }
+                    }
                 }
             }
         }
-
         return false;
     }
+
 
     @Override
     protected void paintComponent(Graphics g) {

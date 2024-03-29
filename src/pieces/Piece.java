@@ -28,7 +28,7 @@ public abstract class Piece {
 
     public abstract boolean isMoveValid(int newCol, int newRow);
 
-    protected abstract ArrayList<PointColRow> getUncheckedPossibleMoves();
+    public abstract ArrayList<PointColRow> getUncheckedPossibleMoves();
 
     public ArrayList<PointColRow> getPossibleMoves() {
         ArrayList<PointColRow> moves = getUncheckedPossibleMoves();
@@ -58,6 +58,10 @@ public abstract class Piece {
         return possibleCaptures;
     }
 
+    public ArrayList<PointColRow> getPossibleCaptures() {
+        return getPossibleCaptures(getPossibleMoves());
+    }
+
 
     protected boolean isMoveValidGeneral(int newCol, int newRow) {
         if (this.col == newCol && this.row == newRow) {
@@ -73,8 +77,26 @@ public abstract class Piece {
                 }
             }
         }
+        boolean result = true;
+        if (isMoveLeavingKingInCheck(newCol, newRow)) {
+            return false;
+        }
 
-        return true;
+        return result;
+    }
+
+    protected boolean isMoveLeavingKingInCheck(int newCol, int newRow) {
+        int oldCol = col;
+        int oldRow = row;
+
+        col = newCol;
+        row = newRow;
+
+        boolean isKingInCheck = board.isKingInCheck(isWhite);
+        col = oldCol;
+        row = oldRow;
+
+        return isKingInCheck;
     }
 
     protected PointColRow getDeltaAndCheckMoveOrthogonal(int newCol, int newRow) {
@@ -109,7 +131,7 @@ public abstract class Piece {
         }
     }
 
-    protected boolean isSteppingOverAnotherPiece(PointColRow pointDelta) {
+    public boolean isSteppingOverAnotherPiece(PointColRow pointDelta) {
         int newCol = col;
         int newRow = row;
 

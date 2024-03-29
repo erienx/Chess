@@ -242,4 +242,8 @@ public abstract class Piece {
     public boolean isWhite() {
         return isWhite;
     }
+
+    public PieceName getName() {
+        return name;
+    }
 }

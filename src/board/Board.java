@@ -1,6 +1,7 @@
 package board;
 
 import pieces.*;
+import pieces.tools.PieceName;
 import pieces.types.*;
 
 import javax.swing.*;
@@ -98,6 +99,9 @@ public class Board extends JPanel {
 
                 for (PointColRow point : possibleMoves) {
                     if (point.col == position.col && point.row == position.row) {
+                        if (piece.getName() == PieceName.KNIGHT){
+                            return true;
+                        }
                         if (!piece.isSteppingOverAnotherPieceDelta(new PointColRow(point.col - piece.col, point.row - piece.row))) {
                             return true;
                         }

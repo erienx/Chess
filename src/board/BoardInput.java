@@ -5,7 +5,6 @@ import pieces.tools.MovePiece;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 
 public class BoardInput extends MouseAdapter {
     private final Board board;
@@ -33,7 +32,9 @@ public class BoardInput extends MouseAdapter {
     @Override
     public void mouseReleased(MouseEvent event) {
         if (board.selectedPiece != null) {
-            movePiece.moveRelease(board.selectedPiece, event.getX(), event.getY());
+            if (!movePiece.moveOnRelease(board.selectedPiece, event.getX(), event.getY())) {
+                movePiece.captureAttempt(board.selectedPiece, event.getX(), event.getY());
+            }
             board.selectedPiece = null;
         }
         board.repaint();
@@ -42,7 +43,7 @@ public class BoardInput extends MouseAdapter {
     @Override
     public void mouseDragged(MouseEvent event) {
         if (board.selectedPiece != null) {
-            movePiece.moveDrag(board.selectedPiece, event.getX(), event.getY());
+            movePiece.moveOnDrag(board.selectedPiece, event.getX(), event.getY());
         }
         board.repaint();
     }

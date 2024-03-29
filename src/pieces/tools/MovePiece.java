@@ -11,13 +11,13 @@ public class MovePiece {
         this.board = board;
     }
 
-    public void moveDrag(Piece piece, int x, int y) {
+    public void moveOnDrag(Piece piece, int x, int y) {
         x -= board.tileSize / 2;  // adjust so that center of the piece is at the cursor
         y -= board.tileSize / 2;  // adjust so that center of the piece is at the cursor
         piece.setPositionsXY(x, y);
     }
 
-    public void moveRelease(Piece piece, int x, int y) {
+    public boolean moveOnRelease(Piece piece, int x, int y) {
         int col = x / board.tileSize;
         int row = y / board.tileSize;
         if (piece.isMoveValid(col, row)) {
@@ -26,8 +26,17 @@ public class MovePiece {
                 Pawn piecePawn = (Pawn) piece;
                 piecePawn.moved = true;
             }
-        } else {
-            piece.setPositionsColRow(piece.col, piece.row);
+            return true;
+        }
+        piece.setPositionsColRow(piece.col, piece.row);
+        return false;
+    }
+    public void captureAttempt(Piece attacker, int x, int y){
+        int col = x / board.tileSize;
+        int row = y / board.tileSize;
+        if (attacker.isCaptureValid(col, row)){
+            board.pieces.remove(board.findPieceAt(col,row));
+            attacker.setPositionsColRow(col,row);
         }
     }
 

@@ -12,6 +12,9 @@ public class PointColRow {
         this.col = col;
         this.row = row;
     }
+    public boolean compare(PointColRow point){
+        return point.col==this.col && point.row == this.row;
+    }
 
     @Override
     public String toString() {

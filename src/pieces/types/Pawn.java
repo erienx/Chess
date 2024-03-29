@@ -7,7 +7,6 @@ import pieces.tools.PieceName;
 import board.Board;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class Pawn extends Piece {
     public boolean moved;
@@ -38,11 +37,12 @@ public class Pawn extends Piece {
         if (board.isPieceAt(newCol, newRow)) {
             return false;
         }
-        if (isSteppingOverAnotherPiece(point)) {
+        if (isSteppingOverAnotherPieceDelta(point)) {
             return false;
         }
         return true;
     }
+
 
     private PointColRow getDeltaAndCheckMovePawn(int newCol, int newRow) {
         if (newCol != col) {
@@ -90,7 +90,7 @@ public class Pawn extends Piece {
     }
 
     @Override
-    public ArrayList<PointColRow> getPossibleCaptures(ArrayList<PointColRow> unused) {
+    public ArrayList<PointColRow> getPossibleCaptures() {
         ArrayList<PointColRow> possibleCaptures = new ArrayList<>();
         int direction;
         if (isWhite) {

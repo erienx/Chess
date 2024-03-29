@@ -33,7 +33,7 @@ public class Queen extends Piece {
         if (point == null) {
             return false;
         }
-        if (isSteppingOverAnotherPiece(point)) {
+        if (isSteppingOverAnotherPieceDelta(point)) {
             return false;
         }
 

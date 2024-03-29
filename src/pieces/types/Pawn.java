@@ -102,15 +102,14 @@ public class Pawn extends Piece {
         PointColRow candidate2 = new PointColRow(col - 1, row + direction);
 
         Piece piece = board.findPieceAt(candidate1.col, candidate1.row);
-        if (piece != null && piece.isWhite() != isWhite && isMoveValidGeneral(candidate1.col, candidate1.row)) {
+        if (piece != null && piece.isWhite() != isWhite && !isMoveLeavingKingInCheck(candidate1.col,candidate1.row)) {
             possibleCaptures.add(candidate1);
         }
 
         piece = board.findPieceAt(candidate2.col, candidate2.row);
-        if (piece != null && piece.isWhite() != isWhite && isMoveValidGeneral(candidate2.col, candidate2.row)) {
+        if (piece != null && piece.isWhite() != isWhite && !isMoveLeavingKingInCheck(candidate2.col,candidate2.row)) {
             possibleCaptures.add(candidate2);
         }
-
         return possibleCaptures;
     }
 }

@@ -30,6 +30,7 @@ public abstract class Piece {
     public boolean isCaptureValid(int newCol, int newRow){
         PointColRow newPosition = new PointColRow(newCol,newRow);
         ArrayList<PointColRow> possibleCaptures = getPossibleCaptures();
+
         for (PointColRow possibleCapture: possibleCaptures){
             if (newPosition.compare(possibleCapture)){
                 return true;
@@ -64,7 +65,7 @@ public abstract class Piece {
 
         for (PointColRow point : possibleMoves) {
             Piece piece = board.findPieceAt(point.col, point.row);
-            if (piece != null && piece.isWhite != this.isWhite && !isSteppingOverAnotherPiece(point)) {
+            if (piece != null && piece.isWhite != this.isWhite && !isSteppingOverAnotherPiece(point) && !isMoveLeavingKingInCheck(point.col,point.row)) {
                 possibleCaptures.add(point);
             }
         }

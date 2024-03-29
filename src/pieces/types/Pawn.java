@@ -71,7 +71,7 @@ public class Pawn extends Piece {
     }
 
     @Override
-    protected ArrayList<PointColRow> getUncheckedPossibleMoves() {
+    public ArrayList<PointColRow> getUncheckedPossibleMoves() {
         ArrayList<PointColRow> moves = new ArrayList<>();
         if (isWhite) {
             moves.add(new PointColRow(col, row - 1));

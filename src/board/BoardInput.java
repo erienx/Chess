@@ -20,15 +20,12 @@ public class BoardInput extends MouseAdapter {
 
     @Override
     public void mousePressed(MouseEvent event) {
-        System.out.println("white king in check: " + board.isKingInCheck(true));
-        System.out.println("black king in check: " + board.isKingInCheck(false) + "\n");
         int col = event.getX() / board.tileSize;
         int row = event.getY() / board.tileSize;
         Piece piecePressed = board.findPieceAt(col, row);
         if (piecePressed == null)
             return;
-        piecePressed.col = col;
-        piecePressed.row = row;
+        piecePressed.setPositionsColRow(col, row);
         board.selectedPiece = piecePressed;
         board.repaint();
     }

@@ -41,7 +41,7 @@ public class Queen extends Piece {
     }
 
     @Override
-    protected ArrayList<PointColRow> getUncheckedPossibleMoves() {
+    public ArrayList<PointColRow> getUncheckedPossibleMoves() {
         ArrayList<PointColRow> moves = getUncheckedPossibleMovesOrthogonal();
         moves.addAll(getUncheckedPossibleMovesDiagonal());
 

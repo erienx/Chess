@@ -71,13 +71,29 @@ public class Board extends JPanel {
     }
 
     public boolean isKingInCheck(boolean isWhite) {
-        if (!isWhite) {
-            for (Piece piece : pieces) {
-                if (piece.isWhite()) {
+        Piece king = null;
+        for (Piece piece : pieces) {
+            if (piece instanceof King && piece.isWhite() == isWhite) {
+                king = piece;
+                break;
+            }
+        }
+        if (king == null) {
+            return false;
+        }
 
+        for (Piece piece : pieces) {
+            if (piece.isWhite() != isWhite) {
+                ArrayList<PointColRow> possibleCaptures = piece.getPossibleCaptures();
+
+                for (PointColRow point : possibleCaptures) {
+                    if (point.col == king.col && point.row == king.row) {
+                        return true;
+                    }
                 }
             }
         }
+
 
         return false;
     }

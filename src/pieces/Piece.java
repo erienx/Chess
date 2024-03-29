@@ -58,6 +58,10 @@ public abstract class Piece {
         return possibleCaptures;
     }
 
+    public ArrayList<PointColRow> getPossibleCaptures() {
+        return getPossibleCaptures(getPossibleMoves());
+    }
+
 
     protected boolean isMoveValidGeneral(int newCol, int newRow) {
         if (this.col == newCol && this.row == newRow) {

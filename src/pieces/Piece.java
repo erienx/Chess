@@ -27,6 +27,17 @@ public abstract class Piece {
     }
 
     public abstract boolean isMoveValid(int newCol, int newRow);
+    public boolean isCaptureValid(int newCol, int newRow){
+        PointColRow newPosition = new PointColRow(newCol,newRow);
+        ArrayList<PointColRow> possibleCaptures = getPossibleCaptures();
+
+        for (PointColRow possibleCapture: possibleCaptures){
+            if (newPosition.compare(possibleCapture)){
+                return true;
+            }
+        }
+        return false;
+    }
 
     public abstract ArrayList<PointColRow> getUncheckedPossibleMoves();
 
@@ -47,19 +58,18 @@ public abstract class Piece {
         return moves;
     }
 
-    public ArrayList<PointColRow> getPossibleCaptures(ArrayList<PointColRow> possibleMoves) {
+
+    public ArrayList<PointColRow> getPossibleCaptures() {
+        ArrayList<PointColRow> possibleMoves = getUncheckedPossibleMoves();
         ArrayList<PointColRow> possibleCaptures = new ArrayList<>();
+
         for (PointColRow point : possibleMoves) {
             Piece piece = board.findPieceAt(point.col, point.row);
-            if (piece != null && piece.isWhite != this.isWhite) {
+            if (piece != null && piece.isWhite != this.isWhite && !isSteppingOverAnotherPiece(point) && !isMoveLeavingKingInCheck(point.col,point.row)) {
                 possibleCaptures.add(point);
             }
         }
         return possibleCaptures;
-    }
-
-    public ArrayList<PointColRow> getPossibleCaptures() {
-        return getPossibleCaptures(getPossibleMoves());
     }
 
 
@@ -72,9 +82,7 @@ public abstract class Piece {
         }
         for (Piece piece : board.pieces) {
             if (piece != this && piece.colDuringDrag == newCol && piece.rowDuringDrag == newRow) {
-                if (piece.isWhite == this.isWhite) {
-                    return false;
-                }
+                return false;
             }
         }
         boolean result = true;
@@ -131,7 +139,7 @@ public abstract class Piece {
         }
     }
 
-    public boolean isSteppingOverAnotherPiece(PointColRow pointDelta) {
+    public boolean isSteppingOverAnotherPieceDelta(PointColRow pointDelta) {
         int newCol = col;
         int newRow = row;
 
@@ -145,6 +153,35 @@ public abstract class Piece {
             }
 
             if (board.isPieceAt(newCol, newRow) && !(col + pointDelta.col == newCol && row + pointDelta.row == newRow)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean isSteppingOverAnotherPiece(PointColRow targetPosition) {
+        int targetCol = targetPosition.col;
+        int targetRow = targetPosition.row;
+
+        int colDelta = targetCol - col;
+        int rowDelta = targetRow - row;
+
+        for (int i = 1; i < Math.max(Math.abs(colDelta), Math.abs(rowDelta)); i++) {
+            int checkCol = col;
+            int checkRow = row;
+
+            if (colDelta > 0) {
+                checkCol += i;
+            } else if (colDelta < 0) {
+                checkCol -= i;
+            }
+
+            if (rowDelta > 0) {
+                checkRow += i;
+            } else if (rowDelta < 0) {
+                checkRow -= i;
+            }
+
+            if (board.isPieceAt(checkCol, checkRow) && !(checkCol == targetCol && checkRow == targetRow)) {
                 return true;
             }
         }
@@ -204,5 +241,9 @@ public abstract class Piece {
 
     public boolean isWhite() {
         return isWhite;
+    }
+
+    public PieceName getName() {
+        return name;
     }
 }

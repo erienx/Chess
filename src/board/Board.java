@@ -1,6 +1,7 @@
 package board;
 
 import pieces.*;
+import pieces.tools.PieceName;
 import pieces.types.*;
 
 import javax.swing.*;
@@ -98,7 +99,10 @@ public class Board extends JPanel {
 
                 for (PointColRow point : possibleMoves) {
                     if (point.col == position.col && point.row == position.row) {
-                        if (!piece.isSteppingOverAnotherPiece(new PointColRow(point.col - piece.col, point.row - piece.row))) {
+                        if (piece.getName() == PieceName.KNIGHT){
+                            return true;
+                        }
+                        if (!piece.isSteppingOverAnotherPieceDelta(new PointColRow(point.col - piece.col, point.row - piece.row))) {
                             return true;
                         }
                     }
@@ -125,26 +129,25 @@ public class Board extends JPanel {
         }
         if (selectedPiece != null) {
             ArrayList<PointColRow> possibleMoves = selectedPiece.getPossibleMoves();
-            if (possibleMoves != null) {
-                ArrayList<PointColRow> possibleCaptures = selectedPiece.getPossibleCaptures(possibleMoves);
-                possibleMoves.removeAll(possibleCaptures);
+            ArrayList<PointColRow> possibleCaptures = selectedPiece.getPossibleCaptures();
+            possibleMoves.removeAll(possibleCaptures);
 
-                g.setColor(new Color(49, 48, 48, 130));
-                for (PointColRow point : possibleMoves) {
-                    int moveX = point.col * tileSize + tileSize / 2;
-                    int moveY = point.row * tileSize + tileSize / 2;
-                    g.fillOval(moveX - 10, moveY - 10, (int) (tileSize * 0.3), (int) (tileSize * 0.3));
-                }
-
-                Graphics2D g2d = (Graphics2D) g;
-                g2d.setStroke(new BasicStroke(5)); // circle thickness
-                for (PointColRow point : possibleCaptures) {
-                    int pieceX = point.col * tileSize;
-                    int pieceY = point.row * tileSize;
-                    g.drawOval(pieceX, pieceY, (int) (tileSize), (int) (tileSize));
-                }
-                g2d.setStroke(new BasicStroke());
+            g.setColor(new Color(49, 48, 48, 130));
+            for (PointColRow point : possibleMoves) {
+                int moveX = point.col * tileSize + tileSize / 2;
+                int moveY = point.row * tileSize + tileSize / 2;
+                g.fillOval(moveX - 10, moveY - 10, (int) (tileSize * 0.3), (int) (tileSize * 0.3));
             }
+
+            Graphics2D g2d = (Graphics2D) g;
+            g2d.setStroke(new BasicStroke(5)); // circle thickness
+            for (PointColRow point : possibleCaptures) {
+                int pieceX = point.col * tileSize;
+                int pieceY = point.row * tileSize;
+                g.drawOval(pieceX, pieceY, (int) (tileSize), (int) (tileSize));
+            }
+            g2d.setStroke(new BasicStroke());
+
         }
 
         for (Piece piece : pieces) {

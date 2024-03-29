@@ -30,7 +30,7 @@ public class Rook extends Piece {
             return false;
         }
 
-        if (isSteppingOverAnotherPiece(point)) {
+        if (isSteppingOverAnotherPieceDelta(point)) {
             return false;
         }
 

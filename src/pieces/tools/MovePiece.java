@@ -1,8 +1,11 @@
 package pieces.tools;
 
 import board.Board;
+import board.PointColRow;
 import pieces.Piece;
 import pieces.types.Pawn;
+
+import java.util.ArrayList;
 
 public class MovePiece {
     Board board;
@@ -14,7 +17,7 @@ public class MovePiece {
     public void moveOnDrag(Piece piece, int x, int y) {
         x -= board.tileSize / 2;  // adjust so that center of the piece is at the cursor
         y -= board.tileSize / 2;  // adjust so that center of the piece is at the cursor
-        piece.setPositionsXY(x, y);
+        piece.setPositionsXY(x,y);
     }
 
     public boolean moveOnRelease(Piece piece, int x, int y) {

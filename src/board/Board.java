@@ -14,7 +14,7 @@ public class Board extends JPanel {
     public final int rows = 8;
     public final ArrayList<Piece> pieces = new ArrayList<>();
     private final BoardInput boardInput;
-    protected Piece selectedPiece = null;
+    public Piece selectedPiece = null;
 
     public Board() {
         this.setPreferredSize(new Dimension(cols * tileSize, rows * tileSize));
@@ -72,37 +72,18 @@ public class Board extends JPanel {
     }
 
     public boolean isKingInCheck(boolean isWhite) {
+        ArrayList<Piece> piecesCopy = new ArrayList<>(pieces);
         Piece king = findKing(isWhite);
-        if (king == null) {
-            return false;
-        }
-
-        return isPieceUnderAttack(king.isWhite(), new PointColRow(king.col, king.row));
-
-    }
-
-    public Piece findKing(boolean isWhite) {
-        Piece king = null;
-        for (Piece piece : pieces) {
-            if (piece instanceof King && piece.isWhite() == isWhite) {
-                king = piece;
-                break;
-            }
-        }
-        return king;
-    }
-
-    public boolean isPieceUnderAttack(boolean isWhite, PointColRow position) {
-        for (Piece piece : pieces) {
+        for (Piece piece : piecesCopy) {
             if (piece.isWhite() != isWhite) {
                 ArrayList<PointColRow> possibleMoves = piece.getUncheckedPossibleMoves();
 
-                for (PointColRow point : possibleMoves) {
-                    if (point.col == position.col && point.row == position.row) {
-                        if (piece.getName() == PieceName.KNIGHT){
+                for (PointColRow move : possibleMoves) {
+                    if (move.col == king.col && move.row == king.row) {
+                        if (piece.getName() == PieceName.KNIGHT ){
                             return true;
                         }
-                        if (!piece.isSteppingOverAnotherPieceDelta(new PointColRow(point.col - piece.col, point.row - piece.row))) {
+                        if (!piece.isSteppingOverAnotherPieceDelta(new PointColRow(move.col - piece.col, move.row - piece.row))) {
                             return true;
                         }
                     }
@@ -110,6 +91,16 @@ public class Board extends JPanel {
             }
         }
         return false;
+
+    }
+
+    public Piece findKing(boolean isWhite) {
+        for (Piece piece : pieces) {
+            if (piece.getName() == PieceName.KING && piece.isWhite() == isWhite) {
+                return piece;
+            }
+        }
+        return null;
     }
 
 

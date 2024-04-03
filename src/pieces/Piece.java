@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public abstract class Piece {
-    protected int colDuringDrag, rowDuringDrag, xPosition, yPosition;
+    public int colDuringDrag, rowDuringDrag, xPosition, yPosition;
     public int col, row;
     protected boolean isWhite;
     protected PieceName name;
@@ -29,10 +29,9 @@ public abstract class Piece {
     public abstract boolean isMoveValid(int newCol, int newRow);
     public boolean isCaptureValid(int newCol, int newRow){
         PointColRow newPosition = new PointColRow(newCol,newRow);
-        ArrayList<PointColRow> possibleCaptures = getPossibleCaptures();
-
+        ArrayList<PointColRow> possibleCaptures = board.selectedPiece.getPossibleCaptures();
         for (PointColRow possibleCapture: possibleCaptures){
-            if (newPosition.compare(possibleCapture)){
+            if (newPosition.equals(possibleCapture)){
                 return true;
             }
         }
@@ -93,16 +92,27 @@ public abstract class Piece {
         return result;
     }
 
-    protected boolean isMoveLeavingKingInCheck(int newCol, int newRow) {
+    public boolean isMoveLeavingKingInCheck(int newCol, int newRow) {
         int oldCol = col;
         int oldRow = row;
 
+
+        Piece piece = board.findPieceAt(newCol, newRow);
         col = newCol;
         row = newRow;
+
+        boolean pieceValid = (piece != null && piece.name != PieceName.KING);
+        if (pieceValid){
+            board.pieces.remove(piece);
+        }
 
         boolean isKingInCheck = board.isKingInCheck(isWhite);
         col = oldCol;
         row = oldRow;
+
+        if (pieceValid){
+            board.pieces.add(piece);
+        }
 
         return isKingInCheck;
     }

@@ -32,7 +32,7 @@ public abstract class Piece {
         ArrayList<PointColRow> possibleCaptures = getPossibleCaptures();
 
         for (PointColRow possibleCapture: possibleCaptures){
-            if (newPosition.compare(possibleCapture)){
+            if (board.isPieceAt(possibleCapture.col,possibleCapture.row) && newPosition.equals(possibleCapture)){
                 return true;
             }
         }
@@ -93,16 +93,26 @@ public abstract class Piece {
         return result;
     }
 
-    protected boolean isMoveLeavingKingInCheck(int newCol, int newRow) {
+    public boolean isMoveLeavingKingInCheck(int newCol, int newRow) {
         int oldCol = col;
         int oldRow = row;
 
         col = newCol;
         row = newRow;
 
+        Piece piece = board.findPieceAt(newCol, newRow);
+        boolean pieceValid = (piece != null && piece.name != PieceName.KING);
+        if (pieceValid){
+            board.pieces.remove(piece);
+        }
+
         boolean isKingInCheck = board.isKingInCheck(isWhite);
         col = oldCol;
         row = oldRow;
+
+        if (pieceValid){
+            board.pieces.add(piece);
+        }
 
         return isKingInCheck;
     }

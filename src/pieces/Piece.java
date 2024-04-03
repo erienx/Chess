@@ -30,7 +30,6 @@ public abstract class Piece {
     public boolean isCaptureValid(int newCol, int newRow){
         PointColRow newPosition = new PointColRow(newCol,newRow);
         ArrayList<PointColRow> possibleCaptures = board.selectedPiece.getPossibleCaptures();
-        System.out.println(possibleCaptures.toString());
         for (PointColRow possibleCapture: possibleCaptures){
             if (newPosition.equals(possibleCapture)){
                 return true;
@@ -97,10 +96,11 @@ public abstract class Piece {
         int oldCol = col;
         int oldRow = row;
 
+
+        Piece piece = board.findPieceAt(newCol, newRow);
         col = newCol;
         row = newRow;
 
-        Piece piece = board.findPieceAt(newCol, newRow);
         boolean pieceValid = (piece != null && piece.name != PieceName.KING);
         if (pieceValid){
             board.pieces.remove(piece);

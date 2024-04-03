@@ -37,7 +37,6 @@ public class MovePiece {
     public void captureAttempt(Piece attacker, int x, int y){
         int col = x / board.tileSize;
         int row = y / board.tileSize;
-        ArrayList<PointColRow> possibleCaptures = attacker.getPossibleCaptures();
         if (attacker.isCaptureValid(col, row)){
             board.pieces.remove(board.findPieceAt(col,row));
             attacker.setPositionsColRow(col,row);

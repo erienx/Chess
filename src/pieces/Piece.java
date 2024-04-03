@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public abstract class Piece {
-    protected int colDuringDrag, rowDuringDrag, xPosition, yPosition;
+    public int colDuringDrag, rowDuringDrag, xPosition, yPosition;
     public int col, row;
     protected boolean isWhite;
     protected PieceName name;
@@ -29,10 +29,10 @@ public abstract class Piece {
     public abstract boolean isMoveValid(int newCol, int newRow);
     public boolean isCaptureValid(int newCol, int newRow){
         PointColRow newPosition = new PointColRow(newCol,newRow);
-        ArrayList<PointColRow> possibleCaptures = getPossibleCaptures();
-
+        ArrayList<PointColRow> possibleCaptures = board.selectedPiece.getPossibleCaptures();
+        System.out.println(possibleCaptures.toString());
         for (PointColRow possibleCapture: possibleCaptures){
-            if (board.isPieceAt(possibleCapture.col,possibleCapture.row) && newPosition.equals(possibleCapture)){
+            if (newPosition.equals(possibleCapture)){
                 return true;
             }
         }

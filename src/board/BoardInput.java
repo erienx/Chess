@@ -33,7 +33,7 @@ public class BoardInput extends MouseAdapter {
     public void mouseReleased(MouseEvent event) {
         if (board.selectedPiece != null) {
             if (!movePiece.moveOnRelease(board.selectedPiece, event.getX(), event.getY())) {
-                //movePiece.captureAttempt(board.selectedPiece, event.getX(), event.getY());
+                movePiece.captureAttempt(board.selectedPiece, event.getX(), event.getY());
             }
             board.selectedPiece = null;
         }

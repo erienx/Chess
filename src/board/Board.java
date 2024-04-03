@@ -14,7 +14,7 @@ public class Board extends JPanel {
     public final int rows = 8;
     public final ArrayList<Piece> pieces = new ArrayList<>();
     private final BoardInput boardInput;
-    protected Piece selectedPiece = null;
+    public Piece selectedPiece = null;
 
     public Board() {
         this.setPreferredSize(new Dimension(cols * tileSize, rows * tileSize));
@@ -78,12 +78,12 @@ public class Board extends JPanel {
             if (piece.isWhite() != isWhite) {
                 ArrayList<PointColRow> possibleMoves = piece.getUncheckedPossibleMoves();
 
-                for (PointColRow point : possibleMoves) {
-                    if (point.col == king.col && point.row == king.row) {
+                for (PointColRow move : possibleMoves) {
+                    if (move.col == king.col && move.row == king.row) {
                         if (piece.getName() == PieceName.KNIGHT ){
                             return true;
                         }
-                        if (!piece.isSteppingOverAnotherPieceDelta(new PointColRow(point.col - piece.col, point.row - piece.row))) {
+                        if (!piece.isSteppingOverAnotherPieceDelta(new PointColRow(move.col - piece.col, move.row - piece.row))) {
                             return true;
                         }
                     }

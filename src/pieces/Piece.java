@@ -64,8 +64,12 @@ public abstract class Piece {
 
         for (PointColRow point : possibleMoves) {
             Piece piece = board.findPieceAt(point.col, point.row);
-            if (piece != null && piece.isWhite != this.isWhite && !isSteppingOverAnotherPiece(point) && !isMoveLeavingKingInCheck(point.col,point.row)) {
-                possibleCaptures.add(point);
+            if (piece != null && piece.isWhite != this.isWhite && !this.isMoveLeavingKingInCheck(point.col,point.row)) {
+
+                if (this.name == PieceName.KNIGHT || !this.isSteppingOverAnotherPiece(point)) {
+                    possibleCaptures.add(point);
+                }
+
             }
         }
         return possibleCaptures;

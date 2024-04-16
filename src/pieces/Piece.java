@@ -28,6 +28,9 @@ public abstract class Piece {
 
     public abstract boolean isMoveValid(int newCol, int newRow);
     public boolean isCaptureValid(int newCol, int newRow){
+        if (board.isWhitesTurn != this.isWhite){
+            return false;
+        }
         PointColRow newPosition = new PointColRow(newCol,newRow);
         ArrayList<PointColRow> possibleCaptures = board.selectedPiece.getPossibleCaptures();
         for (PointColRow possibleCapture: possibleCaptures){
@@ -61,6 +64,9 @@ public abstract class Piece {
     public ArrayList<PointColRow> getPossibleCaptures() {
         ArrayList<PointColRow> possibleMoves = getUncheckedPossibleMoves();
         ArrayList<PointColRow> possibleCaptures = new ArrayList<>();
+        if (board.isWhitesTurn != this.isWhite){
+            return possibleCaptures;
+        }
 
         for (PointColRow point : possibleMoves) {
             Piece piece = board.findPieceAt(point.col, point.row);
@@ -77,6 +83,9 @@ public abstract class Piece {
 
 
     protected boolean isMoveValidGeneral(int newCol, int newRow) {
+        if (board.isWhitesTurn != this.isWhite){
+            return false;
+        }
         if (this.col == newCol && this.row == newRow) {
             return false;
         }

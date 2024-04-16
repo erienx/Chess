@@ -20,8 +20,8 @@ public class Main {
         frame.setLayout(new GridBagLayout());
         frame.getContentPane().setBackground(new Color(65, 64, 64, 255));
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        screenSize.height /= 1.5;
-        screenSize.width /= 2;
+        screenSize.height = 900;
+        screenSize.width = 1100;
         frame.setSize(screenSize);
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);

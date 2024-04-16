@@ -23,12 +23,13 @@ public class MovePiece {
     public boolean moveOnRelease(Piece piece, int x, int y) {
         int col = x / board.tileSize;
         int row = y / board.tileSize;
-        if (piece.isMoveValid(col, row)) {
+        if (board.isWhitesTurn == board.selectedPiece.isWhite() && piece.isMoveValid(col, row)) {
             piece.setPositionsColRow(col, row);
             if (piece.getName() == PieceName.PAWN) {
                 Pawn piecePawn = (Pawn) piece;
                 piecePawn.moved = true;
             }
+            board.switchTurn();
             return true;
         }
         piece.setPositionsColRow(piece.col, piece.row);
@@ -37,9 +38,10 @@ public class MovePiece {
     public void captureAttempt(Piece attacker, int x, int y){
         int col = x / board.tileSize;
         int row = y / board.tileSize;
-        if (attacker.isCaptureValid(col, row)){
+        if (board.isWhitesTurn == board.selectedPiece.isWhite() && attacker.isCaptureValid(col, row)){
             board.pieces.remove(board.findPieceAt(col,row));
             attacker.setPositionsColRow(col,row);
+            board.switchTurn();
         }
     }
 

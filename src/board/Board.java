@@ -15,6 +15,7 @@ public class Board extends JPanel {
     public final ArrayList<Piece> pieces = new ArrayList<>();
     private final BoardInput boardInput;
     public Piece selectedPiece = null;
+    public boolean isWhitesTurn = true;
 
     public Board() {
         this.setPreferredSize(new Dimension(cols * tileSize, rows * tileSize));
@@ -101,6 +102,9 @@ public class Board extends JPanel {
             }
         }
         return null;
+    }
+    public void switchTurn(){
+        isWhitesTurn = !isWhitesTurn;
     }
 
 

@@ -92,6 +92,9 @@ public class Pawn extends Piece {
     @Override
     public ArrayList<PointColRow> getPossibleCaptures() {
         ArrayList<PointColRow> possibleCaptures = new ArrayList<>();
+        if (board.isWhitesTurn != this.isWhite){
+            return possibleCaptures;
+        }
         int direction;
         if (isWhite) {
             direction = -1;

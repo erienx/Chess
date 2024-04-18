@@ -9,7 +9,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class Board extends JPanel {
-    public final int tileSize = 85;
+    public  int tileSize;
     public final int cols = 8;
     public final int rows = 8;
     public final ArrayList<Piece> pieces = new ArrayList<>();
@@ -17,7 +17,8 @@ public class Board extends JPanel {
     public Piece selectedPiece = null;
     public boolean isWhitesTurn = true;
 
-    public Board() {
+    public Board(Dimension windowSize) {
+        this.tileSize = Math.min(windowSize.height,windowSize.width)/11;
         this.setPreferredSize(new Dimension(cols * tileSize, rows * tileSize));
         placePiecesAtStartingPositions();
 
@@ -131,7 +132,7 @@ public class Board extends JPanel {
             for (PointColRow point : possibleMoves) {
                 int moveX = point.col * tileSize + tileSize / 2;
                 int moveY = point.row * tileSize + tileSize / 2;
-                g.fillOval(moveX - 10, moveY - 10, (int) (tileSize * 0.3), (int) (tileSize * 0.3));
+                g.fillOval(moveX - (int)(tileSize/7.5), moveY - (int)(tileSize/7.5), (int) (tileSize * 0.3), (int) (tileSize * 0.3));
             }
 
             Graphics2D g2d = (Graphics2D) g;

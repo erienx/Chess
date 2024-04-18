@@ -1,6 +1,7 @@
 package run;
 
 import board.Board;
+import ui.TimerPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,17 +20,38 @@ public class Main {
 
         frame.setLayout(new GridBagLayout());
         frame.getContentPane().setBackground(new Color(65, 64, 64, 255));
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        screenSize.height = 900;
-        screenSize.width = 1100;
-        frame.setSize(screenSize);
+        Dimension windowSize = Toolkit.getDefaultToolkit().getScreenSize();
+        windowSize.height /= 1.2;
+        windowSize.width /= 1.5;
+        frame.setSize(windowSize);
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
 
-        Board board = new Board();
-        frame.add(board);
+        addPanels(frame, windowSize);
+
 
 
         frame.setVisible(true);
+    }
+    private static void addPanels(JFrame frame, Dimension windowSize){
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.insets = new Insets(0, 0,0,0);
+
+        Board board = new Board(windowSize);
+        frame.add(board,gbc);
+
+        int padVertical = board.rows * board.tileSize + board.tileSize/2;
+        int padHorizontal = (board.cols-2) * board.tileSize;
+
+        gbc.insets = new Insets(padVertical, padHorizontal,0,0);
+        TimerPanel timerPanelWhite = new TimerPanel(board.tileSize);
+        frame.add(timerPanelWhite,gbc);
+
+
+        gbc.insets = new Insets(0, padHorizontal,padVertical,0);
+        TimerPanel timerPanelBlack = new TimerPanel(board.tileSize);
+        frame.add(timerPanelBlack,gbc);
     }
 }

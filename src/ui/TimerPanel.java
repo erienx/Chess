@@ -5,16 +5,21 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
+
 public class TimerPanel extends JPanel {
     private JLabel timerLabel;
     private Timer timer;
     private int timeRemaining;
     private final int secondInMilliseconds = 1000;
     private final int timerRefresh = 100; //in ms
+    private GameResultNotifier gameResultNotifier;
 
-    public TimerPanel(int tileSize) {
-        int minutes = 5;
-        int seconds = 2;
+    public TimerPanel(int tileSize, GameResultNotifier gameResultNotifier) {
+        this.gameResultNotifier = gameResultNotifier;
+
+        int minutes = 0;
+        int seconds = 10;
         timerLabel = new JLabel(String.format("%d:%02d", minutes, seconds));
 
         add(timerLabel);
@@ -50,7 +55,8 @@ public class TimerPanel extends JPanel {
 
         if (timeRemaining <= 0) {
             stopTimer();
-            System.out.println("game stopped");
+            System.out.println("game over");
+            gameResultNotifier.onTimeExpiration();
         }
     }
 

@@ -11,12 +11,15 @@ public class TimerPanel extends JPanel {
     private int timeRemaining;
 
     public TimerPanel(int tileSize) {
-        timerLabel = new JLabel("5:00");
-        add(timerLabel);
-        timerLabel.setFont(new Font("Arial", Font.BOLD, (int)(tileSize/3.5)));
-        setPreferredSize(new Dimension(tileSize *2, tileSize/2));
+        int minutes = 5;
+        int seconds = 0;
+        timerLabel = new JLabel(String.format("%d:%02d", minutes, seconds));
 
-        timeRemaining = 300;
+        add(timerLabel);
+        timerLabel.setFont(new Font("Arial", Font.BOLD, (int) (tileSize / 3.5)));
+        setPreferredSize(new Dimension(tileSize * 2, tileSize / 2));
+
+        timeRemaining = minutes * 60 + seconds - 1;
 
         timer = new Timer(1000, new ActionListener() {
             @Override
@@ -45,6 +48,7 @@ public class TimerPanel extends JPanel {
 
         if (timeRemaining <= 0) {
             stopTimer();
+            System.out.println("game stopped");
         }
     }
 

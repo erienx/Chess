@@ -29,7 +29,7 @@ public class MovePiece {
                 Pawn piecePawn = (Pawn) piece;
                 piecePawn.moved = true;
             }
-            board.switchTurn();
+            switchTurn(piece.isWhite());
             return true;
         }
         piece.setPositionsColRow(piece.col, piece.row);
@@ -41,8 +41,13 @@ public class MovePiece {
         if (board.isWhitesTurn == board.selectedPiece.isWhite() && attacker.isCaptureValid(col, row)){
             board.pieces.remove(board.findPieceAt(col,row));
             attacker.setPositionsColRow(col,row);
-            board.switchTurn();
+            switchTurn(attacker.isWhite());
         }
+    }
+
+    public void switchTurn(boolean isWhite){
+        board.switchTurn();
+        board.handleTimer(isWhite);
     }
 
 }

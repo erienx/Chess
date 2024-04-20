@@ -27,14 +27,15 @@ public abstract class Piece {
     }
 
     public abstract boolean isMoveValid(int newCol, int newRow);
-    public boolean isCaptureValid(int newCol, int newRow){
-        if (board.isWhitesTurn != this.isWhite){
+
+    public boolean isCaptureValid(int newCol, int newRow) {
+        if (board.isWhitesTurn != this.isWhite) {
             return false;
         }
-        PointColRow newPosition = new PointColRow(newCol,newRow);
+        PointColRow newPosition = new PointColRow(newCol, newRow);
         ArrayList<PointColRow> possibleCaptures = board.selectedPiece.getPossibleCaptures();
-        for (PointColRow possibleCapture: possibleCaptures){
-            if (newPosition.equals(possibleCapture)){
+        for (PointColRow possibleCapture : possibleCaptures) {
+            if (newPosition.equals(possibleCapture)) {
                 return true;
             }
         }
@@ -64,13 +65,13 @@ public abstract class Piece {
     public ArrayList<PointColRow> getPossibleCaptures() {
         ArrayList<PointColRow> possibleMoves = getUncheckedPossibleMoves();
         ArrayList<PointColRow> possibleCaptures = new ArrayList<>();
-        if (board.isWhitesTurn != this.isWhite){
+        if (board.isWhitesTurn != this.isWhite) {
             return possibleCaptures;
         }
 
         for (PointColRow point : possibleMoves) {
             Piece piece = board.findPieceAt(point.col, point.row);
-            if (piece != null && piece.isWhite != this.isWhite && !this.isMoveLeavingKingInCheck(point.col,point.row)) {
+            if (piece != null && piece.isWhite != this.isWhite && !this.isMoveLeavingKingInCheck(point.col, point.row)) {
 
                 if (this.name == PieceName.KNIGHT || !this.isSteppingOverAnotherPiece(point)) {
                     possibleCaptures.add(point);
@@ -83,7 +84,7 @@ public abstract class Piece {
 
 
     protected boolean isMoveValidGeneral(int newCol, int newRow) {
-        if (board.isWhitesTurn != this.isWhite){
+        if (board.isWhitesTurn != this.isWhite) {
             return false;
         }
         if (this.col == newCol && this.row == newRow) {
@@ -115,7 +116,7 @@ public abstract class Piece {
         row = newRow;
 
         boolean pieceValid = (piece != null && piece.name != PieceName.KING);
-        if (pieceValid){
+        if (pieceValid) {
             board.pieces.remove(piece);
         }
 
@@ -123,7 +124,7 @@ public abstract class Piece {
         col = oldCol;
         row = oldRow;
 
-        if (pieceValid){
+        if (pieceValid) {
             board.pieces.add(piece);
         }
 
@@ -181,6 +182,7 @@ public abstract class Piece {
         }
         return false;
     }
+
     public boolean isSteppingOverAnotherPiece(PointColRow targetPosition) {
         int targetCol = targetPosition.col;
         int targetRow = targetPosition.row;

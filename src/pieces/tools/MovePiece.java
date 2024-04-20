@@ -17,7 +17,7 @@ public class MovePiece {
     public void moveOnDrag(Piece piece, int x, int y) {
         x -= board.tileSize / 2;  // adjust so that center of the piece is at the cursor
         y -= board.tileSize / 2;  // adjust so that center of the piece is at the cursor
-        piece.setPositionsXY(x,y);
+        piece.setPositionsXY(x, y);
     }
 
     public boolean moveOnRelease(Piece piece, int x, int y) {
@@ -35,17 +35,18 @@ public class MovePiece {
         piece.setPositionsColRow(piece.col, piece.row);
         return false;
     }
-    public void captureAttempt(Piece attacker, int x, int y){
+
+    public void captureAttempt(Piece attacker, int x, int y) {
         int col = x / board.tileSize;
         int row = y / board.tileSize;
-        if (board.isWhitesTurn == board.selectedPiece.isWhite() && attacker.isCaptureValid(col, row)){
-            board.pieces.remove(board.findPieceAt(col,row));
-            attacker.setPositionsColRow(col,row);
+        if (board.isWhitesTurn == board.selectedPiece.isWhite() && attacker.isCaptureValid(col, row)) {
+            board.pieces.remove(board.findPieceAt(col, row));
+            attacker.setPositionsColRow(col, row);
             switchTurn(attacker.isWhite());
         }
     }
 
-    public void switchTurn(boolean isWhite){
+    public void switchTurn(boolean isWhite) {
         board.switchTurn();
         board.handleTimer(isWhite);
     }

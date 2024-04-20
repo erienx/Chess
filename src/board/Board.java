@@ -89,7 +89,7 @@ public class Board extends JPanel {
 
                 for (PointColRow move : possibleMoves) {
                     if (move.col == king.col && move.row == king.row) {
-                        if (piece.getName() == PieceName.KNIGHT ){
+                        if (piece.getName() == PieceName.KNIGHT) {
                             return true;
                         }
                         if (!piece.isSteppingOverAnotherPieceDelta(new PointColRow(move.col - piece.col, move.row - piece.row))) {
@@ -111,25 +111,24 @@ public class Board extends JPanel {
         }
         return null;
     }
-    public void switchTurn(){
+
+    public void switchTurn() {
         isWhitesTurn = !isWhitesTurn;
     }
 
 
-    public void handleTimer(boolean isWhite){
+    public void handleTimer(boolean isWhite) {
 //        if (!gameStarted){
 //            timerPanelWhite.startTimer();
 //        }
-        if(isWhite) {
+        if (isWhite) {
             timerPanelBlack.startTimer();
             timerPanelWhite.stopTimer();
-        }
-        else {
+        } else {
             timerPanelWhite.startTimer();
             timerPanelBlack.stopTimer();
         }
     }
-
 
 
     @Override
@@ -155,7 +154,7 @@ public class Board extends JPanel {
             for (PointColRow point : possibleMoves) {
                 int moveX = point.col * tileSize + tileSize / 2;
                 int moveY = point.row * tileSize + tileSize / 2;
-                g.fillOval(moveX - (int)(tileSize/7.5), moveY - (int)(tileSize/7.5), (int) (tileSize * 0.3), (int) (tileSize * 0.3));
+                g.fillOval(moveX - (int) (tileSize / 7.5), moveY - (int) (tileSize / 7.5), (int) (tileSize * 0.3), (int) (tileSize * 0.3));
             }
 
             Graphics2D g2d = (Graphics2D) g;

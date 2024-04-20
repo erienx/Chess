@@ -1,6 +1,7 @@
 package run;
 
 import board.Board;
+import ui.GameResultNotifier;
 import ui.TimerPanel;
 
 import javax.swing.*;
@@ -9,10 +10,13 @@ import java.awt.*;
 public class Main {
     public static void main(String[] args) {
         JFrame frame = new JFrame();
-        frameOperations(frame);
+
+        frameInitialOperations(frame);
+
+
     }
 
-    private static void frameOperations(JFrame frame) {
+    private static void frameInitialOperations(JFrame frame) {
         frame.setTitle("Chess");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ImageIcon icon = new ImageIcon("src/res/logo.png");
@@ -34,6 +38,8 @@ public class Main {
     }
 
     private static void addPanels(JFrame frame, Dimension windowSize) {
+        GameResultNotifier resultNotifier = new GameResultNotifier(frame);
+
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -44,12 +50,12 @@ public class Main {
         int padHorizontal = (Board.cols - 2) * tileSize;
 
         gbc.insets = new Insets(padVertical, padHorizontal, 0, 0);
-        TimerPanel timerPanelWhite = new TimerPanel(tileSize);
+        TimerPanel timerPanelWhite = new TimerPanel(tileSize,resultNotifier);
         frame.add(timerPanelWhite, gbc);
 
 
         gbc.insets = new Insets(0, padHorizontal, padVertical, 0);
-        TimerPanel timerPanelBlack = new TimerPanel(tileSize);
+        TimerPanel timerPanelBlack = new TimerPanel(tileSize,resultNotifier);
         frame.add(timerPanelBlack, gbc);
 
         gbc.insets = new Insets(0, 0, 0, 0);

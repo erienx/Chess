@@ -12,8 +12,9 @@ public class PointColRow {
         this.col = col;
         this.row = row;
     }
-    public boolean equals(PointColRow point){
-        return point.col==this.col && point.row == this.row;
+
+    public boolean equals(PointColRow point) {
+        return point.col == this.col && point.row == this.row;
     }
 
     @Override

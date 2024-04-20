@@ -9,16 +9,21 @@ public class TimerPanel extends JPanel {
     private JLabel timerLabel;
     private Timer timer;
     private int timeRemaining;
+    private final int secondInMilliseconds = 1000;
+    private final int timerRefresh = 100; //in ms
 
     public TimerPanel(int tileSize) {
-        timerLabel = new JLabel("5:00");
+        int minutes = 5;
+        int seconds = 2;
+        timerLabel = new JLabel(String.format("%d:%02d", minutes, seconds));
+
         add(timerLabel);
-        timerLabel.setFont(new Font("Arial", Font.BOLD, (int)(tileSize/3.5)));
-        setPreferredSize(new Dimension(tileSize *2, tileSize/2));
+        timerLabel.setFont(new Font("Arial", Font.BOLD, (int) (tileSize / 3.5)));
+        setPreferredSize(new Dimension(tileSize * 2, tileSize / 2));
 
-        timeRemaining = 300;
+        timeRemaining = minutes * 60 * secondInMilliseconds + seconds * secondInMilliseconds;
 
-        timer = new Timer(1000, new ActionListener() {
+        timer = new Timer(timerRefresh, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 updateTime();
@@ -35,16 +40,17 @@ public class TimerPanel extends JPanel {
     }
 
     private void updateTime() {
-        int minutes = timeRemaining / 60;
-        int seconds = timeRemaining % 60;
+        int minutes = timeRemaining / (60 * secondInMilliseconds);
+        int seconds = (timeRemaining % (60 * secondInMilliseconds)) / secondInMilliseconds;
 
         String timeString = String.format("%d:%02d", minutes, seconds);
         timerLabel.setText(timeString);
 
-        timeRemaining--;
+        timeRemaining -= timerRefresh;
 
         if (timeRemaining <= 0) {
             stopTimer();
+            System.out.println("game stopped");
         }
     }
 

@@ -30,28 +30,30 @@ public class Main {
         addPanels(frame, windowSize);
 
 
-
         frame.setVisible(true);
     }
-    private static void addPanels(JFrame frame, Dimension windowSize){
+
+    private static void addPanels(JFrame frame, Dimension windowSize) {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.insets = new Insets(0, 0,0,0);
 
-        Board board = new Board(windowSize);
-        frame.add(board,gbc);
+        int tileSize = Math.min(windowSize.height, windowSize.width) / 11;
 
-        int padVertical = board.rows * board.tileSize + board.tileSize/2;
-        int padHorizontal = (board.cols-2) * board.tileSize;
+        int padVertical = Board.rows * tileSize + tileSize / 2;
+        int padHorizontal = (Board.cols - 2) * tileSize;
 
-        gbc.insets = new Insets(padVertical, padHorizontal,0,0);
-        TimerPanel timerPanelWhite = new TimerPanel(board.tileSize);
-        frame.add(timerPanelWhite,gbc);
+        gbc.insets = new Insets(padVertical, padHorizontal, 0, 0);
+        TimerPanel timerPanelWhite = new TimerPanel(tileSize);
+        frame.add(timerPanelWhite, gbc);
 
 
-        gbc.insets = new Insets(0, padHorizontal,padVertical,0);
-        TimerPanel timerPanelBlack = new TimerPanel(board.tileSize);
-        frame.add(timerPanelBlack,gbc);
+        gbc.insets = new Insets(0, padHorizontal, padVertical, 0);
+        TimerPanel timerPanelBlack = new TimerPanel(tileSize);
+        frame.add(timerPanelBlack, gbc);
+
+        gbc.insets = new Insets(0, 0, 0, 0);
+        Board board = new Board(tileSize, timerPanelWhite, timerPanelBlack);
+        frame.add(board, gbc);
     }
 }

@@ -3,22 +3,29 @@ package board;
 import pieces.*;
 import pieces.tools.PieceName;
 import pieces.types.*;
+import ui.TimerPanel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
 public class Board extends JPanel {
-    public  int tileSize;
-    public final int cols = 8;
-    public final int rows = 8;
+    public int tileSize;
+    public static final int cols = 8;
+    public static final int rows = 8;
     public final ArrayList<Piece> pieces = new ArrayList<>();
     private final BoardInput boardInput;
+    private final TimerPanel timerPanelWhite;
+    private final TimerPanel timerPanelBlack;
+    private boolean gameStarted = false;
     public Piece selectedPiece = null;
     public boolean isWhitesTurn = true;
 
-    public Board(Dimension windowSize) {
-        this.tileSize = Math.min(windowSize.height,windowSize.width)/11;
+    public Board(int tileSize, TimerPanel timerPanelWhite, TimerPanel timerPanelBlack) {
+        this.tileSize = tileSize;
+        this.timerPanelWhite = timerPanelWhite;
+        this.timerPanelBlack = timerPanelBlack;
+
         this.setPreferredSize(new Dimension(cols * tileSize, rows * tileSize));
         placePiecesAtStartingPositions();
 
@@ -82,7 +89,7 @@ public class Board extends JPanel {
 
                 for (PointColRow move : possibleMoves) {
                     if (move.col == king.col && move.row == king.row) {
-                        if (piece.getName() == PieceName.KNIGHT ){
+                        if (piece.getName() == PieceName.KNIGHT) {
                             return true;
                         }
                         if (!piece.isSteppingOverAnotherPieceDelta(new PointColRow(move.col - piece.col, move.row - piece.row))) {
@@ -104,8 +111,23 @@ public class Board extends JPanel {
         }
         return null;
     }
-    public void switchTurn(){
+
+    public void switchTurn() {
         isWhitesTurn = !isWhitesTurn;
+    }
+
+
+    public void handleTimer(boolean isWhite) {
+//        if (!gameStarted){
+//            timerPanelWhite.startTimer();
+//        }
+        if (isWhite) {
+            timerPanelBlack.startTimer();
+            timerPanelWhite.stopTimer();
+        } else {
+            timerPanelWhite.startTimer();
+            timerPanelBlack.stopTimer();
+        }
     }
 
 
@@ -132,7 +154,7 @@ public class Board extends JPanel {
             for (PointColRow point : possibleMoves) {
                 int moveX = point.col * tileSize + tileSize / 2;
                 int moveY = point.row * tileSize + tileSize / 2;
-                g.fillOval(moveX - (int)(tileSize/7.5), moveY - (int)(tileSize/7.5), (int) (tileSize * 0.3), (int) (tileSize * 0.3));
+                g.fillOval(moveX - (int) (tileSize / 7.5), moveY - (int) (tileSize / 7.5), (int) (tileSize * 0.3), (int) (tileSize * 0.3));
             }
 
             Graphics2D g2d = (Graphics2D) g;

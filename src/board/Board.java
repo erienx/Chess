@@ -34,7 +34,18 @@ public class Board extends JPanel {
         this.addMouseMotionListener(boardInput);
     }
 
+    public void resetGame() {
+        placePiecesAtStartingPositions();
+        isWhitesTurn = true;
+        gameStarted = false;
+        selectedPiece = null;
+        timerPanelBlack.resetTimer();
+        timerPanelWhite.resetTimer();
+        this.repaint();
+    }
+
     public void placePiecesAtStartingPositions() {
+        pieces.clear();
         pieces.add(new Knight(this, 1, 0, false));
         pieces.add(new Knight(this, 6, 0, false));
         pieces.add(new Knight(this, 1, 7, true));

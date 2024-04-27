@@ -44,22 +44,25 @@ public class Main {
         gbc.gridx = 0;
         gbc.gridy = 0;
 
-        int tileSize = Math.min(windowSize.height, windowSize.width) / 11;
+        int tileScale = 11;
+        int tileSize = Math.min(windowSize.height, windowSize.width) / tileScale;
 
         int padVertical = Board.rows * tileSize + tileSize / 2;
         int padHorizontal = (Board.cols - 2) * tileSize;
 
         gbc.insets = new Insets(padVertical, padHorizontal, 0, 0);
-        TimerPanel timerPanelWhite = new TimerPanel(tileSize,resultNotifier);
+        TimerPanel timerPanelWhite = new TimerPanel(tileSize, 0, 3, resultNotifier);
         frame.add(timerPanelWhite, gbc);
 
 
         gbc.insets = new Insets(0, padHorizontal, padVertical, 0);
-        TimerPanel timerPanelBlack = new TimerPanel(tileSize,resultNotifier);
+        TimerPanel timerPanelBlack = new TimerPanel(tileSize, 0, 3, resultNotifier);
         frame.add(timerPanelBlack, gbc);
 
         gbc.insets = new Insets(0, 0, 0, 0);
         Board board = new Board(tileSize, timerPanelWhite, timerPanelBlack);
         frame.add(board, gbc);
+
+        resultNotifier.setBoard(board);
     }
 }

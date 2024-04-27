@@ -6,27 +6,28 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-
 public class TimerPanel extends JPanel {
     private JLabel timerLabel;
     private Timer timer;
     private int timeRemaining;
     private final int secondInMilliseconds = 1000;
     private final int timerRefresh = 100; //in ms
-    private GameResultNotifier gameResultNotifier;
+    private final GameResultNotifier gameResultNotifier;
+    private final int minutes;
+    private final int seconds;
 
-    public TimerPanel(int tileSize, GameResultNotifier gameResultNotifier) {
+    public TimerPanel(int tileSize, int minutes, int seconds, GameResultNotifier gameResultNotifier) {
         this.gameResultNotifier = gameResultNotifier;
 
-        int minutes = 0;
-        int seconds = 10;
+        this.minutes = minutes;
+        this.seconds = seconds;
         timerLabel = new JLabel(String.format("%d:%02d", minutes, seconds));
 
         add(timerLabel);
         timerLabel.setFont(new Font("Arial", Font.BOLD, (int) (tileSize / 3.5)));
         setPreferredSize(new Dimension(tileSize * 2, tileSize / 2));
 
-        timeRemaining = minutes * 60 * secondInMilliseconds + seconds * secondInMilliseconds;
+        setTimeRemaining();
 
         timer = new Timer(timerRefresh, new ActionListener() {
             @Override
@@ -34,6 +35,16 @@ public class TimerPanel extends JPanel {
                 updateTime();
             }
         });
+    }
+
+    private void setTimeRemaining() {
+        timeRemaining = minutes * 60 * secondInMilliseconds + seconds * secondInMilliseconds;
+    }
+
+    public void resetTimer() {
+        timer.stop();
+        setTimeRemaining();
+        updateTime();
     }
 
     public void startTimer() {

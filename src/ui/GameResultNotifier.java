@@ -20,7 +20,14 @@ public class GameResultNotifier {
     }
 
     public void onTimeExpiration() {
-        createPopUp("game over");
+        String message;
+        if (board.isWhitesTurn) {
+            message = "<b>Black has won</b><br>by timeout";
+        }
+        else{
+            message = "<b>White has won</b><br>by timeout";
+        }
+        createPopUp(message);
     }
 
 
@@ -28,8 +35,8 @@ public class GameResultNotifier {
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
 
-        JLabel messageLabel = new JLabel(message);
-        messageLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        JLabel messageLabel = new JLabel("<html><div style='text-align: center;'>" + message + "</div></html>");
+        messageLabel.setFont(new Font("Helvetica", Font.PLAIN, 16));
         messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(messageLabel, BorderLayout.CENTER);
 

@@ -116,8 +116,11 @@ public abstract class Piece {
         row = newRow;
 
         boolean pieceValid = (piece != null && piece.name != PieceName.KING);
+
+        ArrayList<Piece> piecesCopy = null;
         if (pieceValid) {
-            board.pieces.remove(piece);
+            piecesCopy = new ArrayList<>(board.pieces);
+            piecesCopy.remove(piece);
         }
 
         boolean isKingInCheck = board.isKingInCheck(isWhite);
@@ -125,7 +128,7 @@ public abstract class Piece {
         row = oldRow;
 
         if (pieceValid) {
-            board.pieces.add(piece);
+            piecesCopy.add(piece);
         }
 
         return isKingInCheck;

@@ -36,14 +36,16 @@ public class MovePiece {
         return false;
     }
 
-    public void captureAttempt(Piece attacker, int x, int y) {
+    public boolean captureAttempt(Piece attacker, int x, int y) {
         int col = x / board.tileSize;
         int row = y / board.tileSize;
         if (board.isWhitesTurn == board.selectedPiece.isWhite() && attacker.isCaptureValid(col, row)) {
             board.pieces.remove(board.findPieceAt(col, row));
             attacker.setPositionsColRow(col, row);
             switchTurn(attacker.isWhite());
+            return true;
         }
+        return false;
     }
 
     public void switchTurn(boolean isWhite) {

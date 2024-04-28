@@ -31,9 +31,20 @@ public class BoardInput extends MouseAdapter {
 
     @Override
     public void mouseReleased(MouseEvent event) {
+        boolean moved = false;
         if (board.selectedPiece != null) {
-            if (!movePiece.moveOnRelease(board.selectedPiece, event.getX(), event.getY())) {
-                movePiece.captureAttempt(board.selectedPiece, event.getX(), event.getY());
+            moved = movePiece.moveOnRelease(board.selectedPiece, event.getX(), event.getY());
+            if (!moved) {
+                moved = movePiece.captureAttempt(board.selectedPiece, event.getX(), event.getY());
+            }
+            if (moved) {
+                boolean isCheckmate = board.isCheckmate(!board.selectedPiece.isWhite());
+                System.out.println("checkmate: " + isCheckmate);
+                if (!isCheckmate) {
+                    boolean isStalemate = !board.isMovePossible(!board.selectedPiece.isWhite());
+                    System.out.println("is stalemate: " + isStalemate);
+                }
+                System.out.println();
             }
             board.selectedPiece = null;
         }

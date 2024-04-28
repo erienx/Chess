@@ -50,13 +50,16 @@ public class Main {
         int padVertical = Board.rows * tileSize + tileSize / 2;
         int padHorizontal = (Board.cols - 2) * tileSize;
 
+
+        int minutes = 1;
+        int seconds = 0;
         gbc.insets = new Insets(padVertical, padHorizontal, 0, 0);
-        TimerPanel timerPanelWhite = new TimerPanel(tileSize, 0, 3, resultNotifier);
+        TimerPanel timerPanelWhite = new TimerPanel(tileSize, minutes, seconds, resultNotifier);
         frame.add(timerPanelWhite, gbc);
 
 
         gbc.insets = new Insets(0, padHorizontal, padVertical, 0);
-        TimerPanel timerPanelBlack = new TimerPanel(tileSize, 0, 3, resultNotifier);
+        TimerPanel timerPanelBlack = new TimerPanel(tileSize, minutes, seconds, resultNotifier);
         frame.add(timerPanelBlack, gbc);
 
         gbc.insets = new Insets(0, 0, 0, 0);

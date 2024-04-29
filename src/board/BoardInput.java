@@ -37,18 +37,23 @@ public class BoardInput extends MouseAdapter {
             if (!moved) {
                 moved = movePiece.captureAttempt(board.selectedPiece, event.getX(), event.getY());
             }
+            board.repaint();
             if (moved) {
                 boolean isCheckmate = board.isCheckmate(!board.selectedPiece.isWhite());
                 System.out.println("checkmate: " + isCheckmate);
-                if (!isCheckmate) {
+                if (isCheckmate) {
+                    board.resultNotifier.onCheckmate();
+                } else {
                     boolean isStalemate = !board.isMovePossible(!board.selectedPiece.isWhite());
                     System.out.println("is stalemate: " + isStalemate);
+                    if (isStalemate) {
+                        board.resultNotifier.onStalemate();
+                    }
                 }
                 System.out.println();
             }
             board.selectedPiece = null;
         }
-        board.repaint();
     }
 
     @Override

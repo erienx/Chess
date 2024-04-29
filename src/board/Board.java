@@ -3,6 +3,7 @@ package board;
 import pieces.*;
 import pieces.tools.PieceName;
 import pieces.types.*;
+import ui.GameResultNotifier;
 import ui.TimerPanel;
 
 import javax.swing.*;
@@ -15,16 +16,18 @@ public class Board extends JPanel {
     public static final int rows = 8;
     public final ArrayList<Piece> pieces = new ArrayList<>();
     private final BoardInput boardInput;
-    private final TimerPanel timerPanelWhite;
-    private final TimerPanel timerPanelBlack;
+    public final TimerPanel timerPanelWhite;
+    public final TimerPanel timerPanelBlack;
     private boolean gameStarted = false;
+    public GameResultNotifier resultNotifier;
     public Piece selectedPiece = null;
     public boolean isWhitesTurn = true;
 
-    public Board(int tileSize, TimerPanel timerPanelWhite, TimerPanel timerPanelBlack) {
+    public Board(int tileSize, TimerPanel timerPanelWhite, TimerPanel timerPanelBlack, GameResultNotifier resultNotifier) {
         this.tileSize = tileSize;
         this.timerPanelWhite = timerPanelWhite;
         this.timerPanelBlack = timerPanelBlack;
+        this.resultNotifier = resultNotifier;
 
         this.setPreferredSize(new Dimension(cols * tileSize, rows * tileSize));
         placePiecesAtStartingPositions();
@@ -46,29 +49,29 @@ public class Board extends JPanel {
 
     public void placePiecesAtStartingPositions() {
         pieces.clear();
-//        pieces.add(new Knight(this, 1, 0, false));
-//        pieces.add(new Knight(this, 6, 0, false));
+        pieces.add(new Knight(this, 1, 0, false));
+        pieces.add(new Knight(this, 6, 0, false));
         pieces.add(new Knight(this, 1, 7, true));
         pieces.add(new Knight(this, 6, 7, true));
 
         pieces.add(new King(this, 4, 0, false));
         pieces.add(new King(this, 4, 7, true));
 
-//        pieces.add(new Queen(this, 3, 0, false));
+        pieces.add(new Queen(this, 3, 0, false));
         pieces.add(new Queen(this, 3, 7, true));
 
-//        pieces.add(new Bishop(this, 2, 0, false));
-//        pieces.add(new Bishop(this, 5, 0, false));
+        pieces.add(new Bishop(this, 2, 0, false));
+        pieces.add(new Bishop(this, 5, 0, false));
         pieces.add(new Bishop(this, 2, 7, true));
         pieces.add(new Bishop(this, 5, 7, true));
 
-//        pieces.add(new Rook(this, 0, 0, false));
-//        pieces.add(new Rook(this, 7, 0, false));
+        pieces.add(new Rook(this, 0, 0, false));
+        pieces.add(new Rook(this, 7, 0, false));
         pieces.add(new Rook(this, 0, 7, true));
         pieces.add(new Rook(this, 7, 7, true));
 
         for (int i = 0; i < 8; i++) {
-//            pieces.add(new Pawn(this, i, 1, false));
+            pieces.add(new Pawn(this, i, 1, false));
             pieces.add(new Pawn(this, i, 6, true));
         }
     }

@@ -63,7 +63,7 @@ public class Main {
         frame.add(timerPanelBlack, gbc);
 
         gbc.insets = new Insets(0, 0, 0, 0);
-        Board board = new Board(tileSize, timerPanelWhite, timerPanelBlack);
+        Board board = new Board(tileSize, timerPanelWhite, timerPanelBlack, resultNotifier);
         frame.add(board, gbc);
 
         resultNotifier.setBoard(board);

@@ -31,6 +31,27 @@ public class GameResultNotifier {
         createPopUp(message);
     }
 
+    public void onCheckmate() {
+        stopTime();
+        String message;
+        if (board.isWhitesTurn) {
+            message = "<b>Black has won</b><br>by checkmate";
+        } else {
+            message = "<b>White has won</b><br>by checkmate";
+        }
+        createPopUp(message);
+    }
+
+    public void onStalemate() {
+        stopTime();
+        createPopUp("<b>Draw</b><br>by stalemate");
+    }
+
+    private void stopTime() {
+        board.timerPanelWhite.stopTimer();
+        board.timerPanelBlack.stopTimer();
+    }
+
 
     private void createPopUp(String message) {
         JPanel panel = new JPanel();

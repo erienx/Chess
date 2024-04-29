@@ -1,11 +1,8 @@
 package pieces.tools;
 
 import board.Board;
-import board.PointColRow;
 import pieces.Piece;
 import pieces.types.Pawn;
-
-import java.util.ArrayList;
 
 public class MovePiece {
     Board board;
@@ -50,7 +47,7 @@ public class MovePiece {
 
     public void switchTurn(boolean isWhite) {
         board.switchTurn();
-        board.handleTimer(isWhite);
+        board.handleTimerOnTurnSwitch(isWhite);
     }
 
 }

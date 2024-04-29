@@ -90,7 +90,7 @@ public abstract class Piece {
         if (this.col == newCol && this.row == newRow) {
             return false;
         }
-        if (newCol < 0 || newCol >= board.cols || newRow < 0 || newRow >= board.rows) {
+        if (newCol < 0 || newCol >= Board.cols || newRow < 0 || newRow >= Board.rows) {
             return false;
         }
         for (Piece piece : board.pieces) {

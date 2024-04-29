@@ -99,11 +99,16 @@ public class Board extends JPanel {
         Piece king = findKing(isWhite);
         for (Piece piece : piecesCopy) {
             if (piece.isWhite() != isWhite) {
-                ArrayList<PointColRow> possibleMoves = piece.getUncheckedPossibleMoves();
+                ArrayList<PointColRow> possibleMoves;
+                if (piece.getName() == PieceName.PAWN) {
+                    possibleMoves = ((Pawn) piece).getUncheckedPossibleCaptures();
+                } else {
+                    possibleMoves = piece.getUncheckedPossibleMoves();
+                }
 
                 for (PointColRow move : possibleMoves) {
                     if (move.col == king.col && move.row == king.row) {
-                        if (piece.getName() == PieceName.KNIGHT) {
+                        if (piece.getName() == PieceName.KNIGHT || piece.getName() == PieceName.PAWN) {
                             return true;
                         }
                         if (!piece.isSteppingOverAnotherPieceDelta(new PointColRow(move.col - piece.col, move.row - piece.row))) {
@@ -131,7 +136,7 @@ public class Board extends JPanel {
     }
 
 
-    public void handleTimer(boolean isWhite) {
+    public void handleTimerOnTurnSwitch(boolean isWhite) {
         if (isWhite) {
             timerPanelBlack.startTimer();
             timerPanelWhite.stopTimer();

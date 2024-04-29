@@ -39,18 +39,13 @@ public class BoardInput extends MouseAdapter {
             }
             board.repaint();
             if (moved) {
-                boolean isCheckmate = board.isCheckmate(!board.selectedPiece.isWhite());
-                System.out.println("checkmate: " + isCheckmate);
-                if (isCheckmate) {
+                if (board.isCheckmate(!board.selectedPiece.isWhite())) {
                     board.resultNotifier.onCheckmate();
                 } else {
-                    boolean isStalemate = !board.isMovePossible(!board.selectedPiece.isWhite());
-                    System.out.println("is stalemate: " + isStalemate);
-                    if (isStalemate) {
+                    if (!board.isMovePossible(!board.selectedPiece.isWhite())) {
                         board.resultNotifier.onStalemate();
                     }
                 }
-                System.out.println();
             }
             board.selectedPiece = null;
         }

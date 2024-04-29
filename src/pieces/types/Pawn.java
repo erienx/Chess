@@ -115,4 +115,17 @@ public class Pawn extends Piece {
         }
         return possibleCaptures;
     }
+
+    public ArrayList<PointColRow> getUncheckedPossibleCaptures() {
+        ArrayList<PointColRow> captures = new ArrayList<>();
+        int direction;
+        if (isWhite) {
+            direction = -1;
+        } else {
+            direction = 1;
+        }
+        captures.add(new PointColRow(col + 1, row + direction));
+        captures.add(new PointColRow(col - 1, row + direction));
+        return captures;
+    }
 }

@@ -40,12 +40,10 @@ public class BoardInput extends MouseAdapter {
             board.repaint();
             if (moved) {
                 if (board.isCheckmate(!board.selectedPiece.isWhite())) {
-                    System.out.println("checkmate\n");
-                    // board.resultNotifier.onCheckmate();
+                    board.resultNotifier.onCheckmate();
                 } else {
                     if (!board.isMovePossible(!board.selectedPiece.isWhite())) {
-                        System.out.println("stalemate\n");
-                        //board.resultNotifier.onStalemate();
+                        board.resultNotifier.onStalemate();
                     }
                 }
             }

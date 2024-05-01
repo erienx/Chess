@@ -49,24 +49,24 @@ public class Board extends JPanel {
 
     public void placePiecesAtStartingPositions() {
         pieces.clear();
+        pieces.add(new King(this, 4, 0, false));
+
         pieces.add(new Knight(this, 1, 0, false));
         pieces.add(new Knight(this, 6, 0, false));
-        pieces.add(new Knight(this, 1, 7, true));
-        pieces.add(new Knight(this, 6, 7, true));
-
-        pieces.add(new King(this, 4, 0, false));
-        pieces.add(new King(this, 4, 7, true));
-
         pieces.add(new Queen(this, 3, 0, false));
-        pieces.add(new Queen(this, 3, 7, true));
-
         pieces.add(new Bishop(this, 2, 0, false));
         pieces.add(new Bishop(this, 5, 0, false));
-        pieces.add(new Bishop(this, 2, 7, true));
-        pieces.add(new Bishop(this, 5, 7, true));
-
         pieces.add(new Rook(this, 0, 0, false));
         pieces.add(new Rook(this, 7, 0, false));
+
+
+        pieces.add(new King(this, 4, 7, true));
+
+        pieces.add(new Knight(this, 1, 7, true));
+        pieces.add(new Knight(this, 6, 7, true));
+        pieces.add(new Queen(this, 3, 7, true));
+        pieces.add(new Bishop(this, 2, 7, true));
+        pieces.add(new Bishop(this, 5, 7, true));
         pieces.add(new Rook(this, 0, 7, true));
         pieces.add(new Rook(this, 7, 7, true));
 
@@ -93,11 +93,9 @@ public class Board extends JPanel {
         }
         return false;
     }
-
-    public int countChecksOnKing(boolean isWhite) {
+    public boolean isKingInCheck(boolean isWhite) {
         ArrayList<Piece> piecesCopy = new ArrayList<>(pieces);
         Piece king = findKing(isWhite);
-        int checks = 0;
         for (Piece piece : piecesCopy) {
             if (piece.isWhite() != isWhite) {
                 ArrayList<PointColRow> possibleMoves;
@@ -110,16 +108,16 @@ public class Board extends JPanel {
                 for (PointColRow move : possibleMoves) {
                     if (move.col == king.col && move.row == king.row) {
                         if (piece.getName() == PieceName.KNIGHT || piece.getName() == PieceName.PAWN) {
-                            checks++;
+                            return true;
                         }
                         if (!piece.isSteppingOverAnotherPieceDelta(new PointColRow(move.col - piece.col, move.row - piece.row))) {
-                            checks++;
+                            return true;
                         }
                     }
                 }
             }
         }
-        return checks;
+        return false;
 
     }
 
@@ -149,7 +147,8 @@ public class Board extends JPanel {
 
 
     public boolean isMovePossible(boolean isWhite) {
-        for (Piece piece : pieces) {
+        ArrayList<Piece> piecesCopy = new ArrayList<>(pieces);
+        for (Piece piece : piecesCopy) {
             if (piece.isWhite() == isWhite) {
                 if (!piece.getPossibleMoves().isEmpty() || !piece.getPossibleCaptures().isEmpty()) {
                     return true;
@@ -158,12 +157,9 @@ public class Board extends JPanel {
         }
         return false;
     }
-
-    public boolean isCheckmate(boolean isWhite) {
-        int checks = countChecksOnKing(isWhite);
-        System.out.println(checks);
-        return !isMovePossible(isWhite) && checks > 0;
-    }
+public boolean isCheckmate(boolean isWhite) {
+    return (isKingInCheck(isWhite) && !isMovePossible(isWhite));
+}
 
 
     @Override

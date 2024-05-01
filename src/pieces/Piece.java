@@ -4,6 +4,7 @@ package pieces;
 import board.PointColRow;
 import pieces.tools.PieceName;
 import board.Board;
+import pieces.types.Pawn;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -63,17 +64,22 @@ public abstract class Piece {
 
 
     public ArrayList<PointColRow> getPossibleCaptures() {
-        ArrayList<PointColRow> possibleMoves = getUncheckedPossibleMoves();
         ArrayList<PointColRow> possibleCaptures = new ArrayList<>();
         if (board.isWhitesTurn != this.isWhite) {
             return possibleCaptures;
+        }
+        ArrayList<PointColRow> possibleMoves;
+        if (this.getName() == PieceName.PAWN) {
+            possibleMoves = ((Pawn) this).getUncheckedPossibleCaptures();
+        } else {
+            possibleMoves = this.getUncheckedPossibleMoves();
         }
 
         for (PointColRow point : possibleMoves) {
             Piece piece = board.findPieceAt(point.col, point.row);
             if (piece != null && piece.isWhite != this.isWhite && !this.isMoveLeavingKingInCheck(point.col, point.row)) {
 
-                if (this.name == PieceName.KNIGHT || !this.isSteppingOverAnotherPiece(point)) {
+                if (this.name == PieceName.KNIGHT || this.name == PieceName.PAWN || !this.isSteppingOverAnotherPiece(point)) {
                     possibleCaptures.add(point);
                 }
 
@@ -117,18 +123,16 @@ public abstract class Piece {
 
         boolean pieceValid = (piece != null && piece.name != PieceName.KING);
 
-        ArrayList<Piece> piecesCopy = null;
         if (pieceValid) {
-            piecesCopy = new ArrayList<>(board.pieces);
-            piecesCopy.remove(piece);
+            board.pieces.remove(piece);
         }
 
-        boolean isKingInCheck = board.countChecksOnKing(isWhite) > 0;
+        boolean isKingInCheck = board.isKingInCheck(isWhite);
         col = oldCol;
         row = oldRow;
 
         if (pieceValid) {
-            piecesCopy.add(piece);
+            board.pieces.add(piece);
         }
 
         return isKingInCheck;

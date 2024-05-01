@@ -123,7 +123,7 @@ public abstract class Piece {
             piecesCopy.remove(piece);
         }
 
-        boolean isKingInCheck = board.isKingInCheck(isWhite);
+        boolean isKingInCheck = board.countChecksOnKing(isWhite) > 0;
         col = oldCol;
         row = oldRow;
 

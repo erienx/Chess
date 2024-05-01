@@ -94,9 +94,10 @@ public class Board extends JPanel {
         return false;
     }
 
-    public boolean isKingInCheck(boolean isWhite) {
+    public int countChecksOnKing(boolean isWhite) {
         ArrayList<Piece> piecesCopy = new ArrayList<>(pieces);
         Piece king = findKing(isWhite);
+        int checks = 0;
         for (Piece piece : piecesCopy) {
             if (piece.isWhite() != isWhite) {
                 ArrayList<PointColRow> possibleMoves;
@@ -109,16 +110,16 @@ public class Board extends JPanel {
                 for (PointColRow move : possibleMoves) {
                     if (move.col == king.col && move.row == king.row) {
                         if (piece.getName() == PieceName.KNIGHT || piece.getName() == PieceName.PAWN) {
-                            return true;
+                            checks++;
                         }
                         if (!piece.isSteppingOverAnotherPieceDelta(new PointColRow(move.col - piece.col, move.row - piece.row))) {
-                            return true;
+                            checks++;
                         }
                     }
                 }
             }
         }
-        return false;
+        return checks;
 
     }
 
@@ -159,7 +160,9 @@ public class Board extends JPanel {
     }
 
     public boolean isCheckmate(boolean isWhite) {
-        return !isMovePossible(isWhite) && isKingInCheck(isWhite);
+        int checks = countChecksOnKing(isWhite);
+        System.out.println(checks);
+        return !isMovePossible(isWhite) && checks > 0;
     }
 
 

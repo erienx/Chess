@@ -58,4 +58,61 @@ public class King extends Piece {
         return moves;
     }
 
+    public boolean isMoveAValidCastle(int newCol, int newRow) {
+        if (this.moved || Math.abs(this.col - newCol) != 2 || this.row != newRow) {
+            return false;
+        }
+        if (newCol == 2) {
+            if (!isRookValidForCastle(true) || isKingInCheckDuringCastle(true)) {
+                return false;
+            }
+        } else if (newCol == 6) {
+            if (!isRookValidForCastle(false) || isKingInCheckDuringCastle(false)) {
+                return false;
+            }
+        } else {
+            return false;
+        }
+
+
+        return true;
+    }
+
+    private boolean isRookValidForCastle(boolean isLeftRook) {
+        int col;
+        if (isLeftRook) {
+            col = 0;
+        } else {
+            col = 7;
+        }
+        Piece potentialRook = board.findPieceAt(col, this.row);
+        if (potentialRook == null || potentialRook.getName() != PieceName.ROOK || potentialRook.moved) {
+            return false;
+        }
+        if (this.isSteppingOverAnotherPiece(new PointColRow(col, this.row))) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean isKingInCheckDuringCastle(boolean isLeftRook) {
+        int direction = isLeftRook ? -1 : 1;
+        if (board.isKingInCheck(this.isWhite)
+                || this.isMoveLeavingKingInCheck(this.col + direction, this.row)
+                || this.isMoveLeavingKingInCheck(this.col + (direction * 2), this.row)) {
+            return true;
+        }
+        return false;
+    }
+
+    public Piece findCastlingRook(int newCol, int newRow) {
+        if (newCol == 2) {
+            return board.findPieceAt(0, newRow);
+        }
+        if (newCol == 6) {
+            return board.findPieceAt(7, newRow);
+        }
+        return null;
+    }
 }

@@ -62,11 +62,11 @@ public class Board extends JPanel {
 
         pieces.add(new King(this, 4, 7, true));
 
-        pieces.add(new Knight(this, 1, 7, true));
-        pieces.add(new Knight(this, 6, 7, true));
+        //pieces.add(new Knight(this, 1, 7, true));
+        //pieces.add(new Knight(this, 6, 7, true));
         pieces.add(new Queen(this, 3, 7, true));
-        pieces.add(new Bishop(this, 2, 7, true));
-        pieces.add(new Bishop(this, 5, 7, true));
+        //pieces.add(new Bishop(this, 2, 7, true));
+        //pieces.add(new Bishop(this, 5, 7, true));
         pieces.add(new Rook(this, 0, 7, true));
         pieces.add(new Rook(this, 7, 7, true));
 
@@ -93,6 +93,7 @@ public class Board extends JPanel {
         }
         return false;
     }
+
     public boolean isKingInCheck(boolean isWhite) {
         ArrayList<Piece> piecesCopy = new ArrayList<>(pieces);
         Piece king = findKing(isWhite);
@@ -157,9 +158,10 @@ public class Board extends JPanel {
         }
         return false;
     }
-public boolean isCheckmate(boolean isWhite) {
-    return (isKingInCheck(isWhite) && !isMovePossible(isWhite));
-}
+
+    public boolean isCheckmate(boolean isWhite) {
+        return (isKingInCheck(isWhite) && !isMovePossible(isWhite));
+    }
 
 
     @Override
@@ -180,6 +182,7 @@ public boolean isCheckmate(boolean isWhite) {
             ArrayList<PointColRow> possibleMoves = selectedPiece.getPossibleMoves();
             ArrayList<PointColRow> possibleCaptures = selectedPiece.getPossibleCaptures();
             possibleMoves.removeAll(possibleCaptures);
+            addCastlingMovesToDisplay(possibleMoves);
 
             g.setColor(new Color(49, 48, 48, 130));
             for (PointColRow point : possibleMoves) {
@@ -201,6 +204,20 @@ public boolean isCheckmate(boolean isWhite) {
 
         for (Piece piece : pieces) {
             piece.paintPiece(graphics2D);
+        }
+    }
+
+    private void addCastlingMovesToDisplay(ArrayList<PointColRow> possibleMoves) {
+        if (selectedPiece.isWhite() == this.isWhitesTurn && selectedPiece.getName() == PieceName.KING) {
+            PointColRow castle1 = new PointColRow(selectedPiece.col - 2, selectedPiece.row);
+            PointColRow castle2 = new PointColRow(selectedPiece.col + 2, selectedPiece.row);
+            King king = (King) selectedPiece;
+            if (king.isMoveAValidCastle(castle1.col, castle1.row)) {
+                possibleMoves.add(castle1);
+            }
+            if (king.isMoveAValidCastle(castle2.col, castle2.row)) {
+                possibleMoves.add(castle2);
+            }
         }
     }
 

@@ -15,6 +15,7 @@ public abstract class Piece {
     public int col, row;
     protected boolean isWhite;
     protected PieceName name;
+    public boolean moved = false;
 
     protected Image pieceImage;
     protected Board board;
@@ -121,9 +122,9 @@ public abstract class Piece {
         col = newCol;
         row = newRow;
 
-        boolean pieceValid = (piece != null && piece.name != PieceName.KING);
+        boolean pieceValidForRemoval = (piece != null && piece.name != PieceName.KING);
 
-        if (pieceValid) {
+        if (pieceValidForRemoval) {
             board.pieces.remove(piece);
         }
 
@@ -131,7 +132,7 @@ public abstract class Piece {
         col = oldCol;
         row = oldRow;
 
-        if (pieceValid) {
+        if (pieceValidForRemoval) {
             board.pieces.add(piece);
         }
 

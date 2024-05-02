@@ -9,14 +9,12 @@ import board.Board;
 import java.util.ArrayList;
 
 public class Pawn extends Piece {
-    public boolean moved;
 
     public Pawn(Board board, int col, int row, boolean isWhite) {
         super(board);
         setPositionsColRow(col, row);
         this.isWhite = isWhite;
         this.name = PieceName.PAWN;
-        this.moved = false;
 
         PieceImagesLoader imagesLoader = new PieceImagesLoader();
         this.pieceImage = imagesLoader.getSinglePieceImage(board, isWhite, this.name);

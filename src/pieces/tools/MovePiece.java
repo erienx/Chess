@@ -2,6 +2,7 @@ package pieces.tools;
 
 import board.Board;
 import pieces.Piece;
+import pieces.types.King;
 import pieces.types.Pawn;
 
 public class MovePiece {
@@ -20,14 +21,16 @@ public class MovePiece {
     public boolean moveOnRelease(Piece piece, int x, int y) {
         int col = x / board.tileSize;
         int row = y / board.tileSize;
-        if (board.isWhitesTurn == board.selectedPiece.isWhite() && piece.isMoveValid(col, row)) {
-            piece.setPositionsColRow(col, row);
-            if (piece.getName() == PieceName.PAWN) {
-                Pawn piecePawn = (Pawn) piece;
-                piecePawn.moved = true;
+        if (board.isWhitesTurn == board.selectedPiece.isWhite()) {
+            if (piece.isMoveValid(col, row)) {
+                if (handleRegularMove(piece, col, row)) {
+                    return true;
+                }
+            } else if (piece.getName() == PieceName.KING) {
+                if (handleCastling(piece, col, row)) {
+                    return true;
+                }
             }
-            switchTurn(piece.isWhite());
-            return true;
         }
         piece.setPositionsColRow(piece.col, piece.row);
         return false;
@@ -48,6 +51,34 @@ public class MovePiece {
     public void switchTurn(boolean isWhite) {
         board.switchTurn();
         board.handleTimerOnTurnSwitch(isWhite);
+    }
+
+    private boolean handleRegularMove(Piece piece, int col, int row) {
+        piece.setPositionsColRow(col, row);
+        piece.moved = true;
+        board.repaint();
+        switchTurn(piece.isWhite());
+        return true;
+    }
+
+    private boolean handleCastling(Piece piece, int col, int row) {
+        King king = (King) piece;
+        if (king.isMoveAValidCastle(col, row)) {
+            piece.setPositionsColRow(col, row);
+            Piece rook = king.findCastlingRook(col, row);
+            if (col == 2) {
+                rook.setPositionsColRow(3, rook.row);
+            }
+            if (col == 6) {
+                rook.setPositionsColRow(5, rook.row);
+            }
+            rook.moved = true;
+
+            board.repaint();
+            switchTurn(piece.isWhite());
+            return true;
+        }
+        return false;
     }
 
 }

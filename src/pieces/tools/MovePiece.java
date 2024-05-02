@@ -3,7 +3,6 @@ package pieces.tools;
 import board.Board;
 import pieces.Piece;
 import pieces.types.King;
-import pieces.types.Pawn;
 
 public class MovePiece {
     Board board;

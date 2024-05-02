@@ -1,6 +1,6 @@
 package board;
 
-import pieces.*;
+import pieces.Piece;
 import pieces.tools.PieceName;
 import pieces.types.*;
 import ui.GameResultNotifier;
@@ -62,11 +62,11 @@ public class Board extends JPanel {
 
         pieces.add(new King(this, 4, 7, true));
 
-        //pieces.add(new Knight(this, 1, 7, true));
-        //pieces.add(new Knight(this, 6, 7, true));
+        pieces.add(new Knight(this, 1, 7, true));
+        pieces.add(new Knight(this, 6, 7, true));
         pieces.add(new Queen(this, 3, 7, true));
-        //pieces.add(new Bishop(this, 2, 7, true));
-        //pieces.add(new Bishop(this, 5, 7, true));
+        pieces.add(new Bishop(this, 2, 7, true));
+        pieces.add(new Bishop(this, 5, 7, true));
         pieces.add(new Rook(this, 0, 7, true));
         pieces.add(new Rook(this, 7, 7, true));
 

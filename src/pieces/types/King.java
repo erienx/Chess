@@ -1,13 +1,12 @@
 package pieces.types;
 
+import board.Board;
 import board.PointColRow;
 import pieces.Piece;
 import pieces.tools.PieceImagesLoader;
 import pieces.tools.PieceName;
-import board.Board;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class King extends Piece {
     public King(Board board, int col, int row, boolean isWhite) {

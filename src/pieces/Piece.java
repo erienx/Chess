@@ -1,9 +1,9 @@
 package pieces;
 
 
+import board.Board;
 import board.PointColRow;
 import pieces.tools.PieceName;
-import board.Board;
 import pieces.types.Pawn;
 
 import java.awt.*;

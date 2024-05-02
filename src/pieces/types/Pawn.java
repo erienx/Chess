@@ -1,10 +1,10 @@
 package pieces.types;
 
+import board.Board;
 import board.PointColRow;
 import pieces.Piece;
 import pieces.tools.PieceImagesLoader;
 import pieces.tools.PieceName;
-import board.Board;
 
 import java.util.ArrayList;
 

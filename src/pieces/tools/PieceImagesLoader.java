@@ -10,7 +10,7 @@ import java.io.IOException;
 public class PieceImagesLoader {
     private BufferedImage piecesImage;
     private int imageSinglePieceDimension;
-    final String imagePath = "pieces.png";
+    final String imagePath = "res/pieces.png";
 
     public PieceImagesLoader() {
         try {
